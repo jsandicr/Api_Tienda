@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_TIENDAModelStoreContainer" CdmEntityContainer="DB_TIENDAEntities">
+    <EntitySetMapping Name="BITACORA">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.BITACORA">
+        <MappingFragment StoreEntitySet="BITACORA">
+          <ScalarProperty Name="ERROR_ID" ColumnName="ERROR_ID" />
+          <ScalarProperty Name="ERROR_USR_FK" ColumnName="ERROR_USR_FK" />
+          <ScalarProperty Name="ERROR_FECHA_HORA" ColumnName="ERROR_FECHA_HORA" />
+          <ScalarProperty Name="ERROR_CODIGO" ColumnName="ERROR_CODIGO" />
+          <ScalarProperty Name="ERROR_MENSAJE" ColumnName="ERROR_MENSAJE" />
+          <ScalarProperty Name="ERROR_ORIGEN" ColumnName="ERROR_ORIGEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CARRITO">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.CARRITO">
+        <MappingFragment StoreEntitySet="CARRITO">
+          <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+          <ScalarProperty Name="CAR_ID_USUARIO" ColumnName="CAR_ID_USUARIO" />
+          <ScalarProperty Name="CAR_ID_PRODUCTO" ColumnName="CAR_ID_PRODUCTO" />
+          <ScalarProperty Name="CAR_CANTIDAD_X_PRODUCTO" ColumnName="CAR_CANTIDAD_X_PRODUCTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CATEGORIA">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.CATEGORIA">
+        <MappingFragment StoreEntitySet="CATEGORIA">
+          <ScalarProperty Name="CAT_ID" ColumnName="CAT_ID" />
+          <ScalarProperty Name="CAT_DESCRIPCION" ColumnName="CAT_DESCRIPCION" />
+          <ScalarProperty Name="CAT_ACTVIVO" ColumnName="CAT_ACTVIVO" />
+          <ScalarProperty Name="CAT_FECHA_REGISTRO" ColumnName="CAT_FECHA_REGISTRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COMPRA">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.COMPRA">
+        <MappingFragment StoreEntitySet="COMPRA">
+          <ScalarProperty Name="CPA_ID" ColumnName="CPA_ID" />
+          <ScalarProperty Name="CPA_ID_USUARIO" ColumnName="CPA_ID_USUARIO" />
+          <ScalarProperty Name="CPA_CANTIDAD_PRODUCTO" ColumnName="CPA_CANTIDAD_PRODUCTO" />
+          <ScalarProperty Name="CPA_TOTAL_COMPRA" ColumnName="CPA_TOTAL_COMPRA" />
+          <ScalarProperty Name="CPA_FECHA" ColumnName="CPA_FECHA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DETALLE_COMPRA">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.DETALLE_COMPRA">
+        <MappingFragment StoreEntitySet="DETALLE_COMPRA">
+          <ScalarProperty Name="DTCPA_ID" ColumnName="DTCPA_ID" />
+          <ScalarProperty Name="DTCPA_ID_COMPRA" ColumnName="DTCPA_ID_COMPRA" />
+          <ScalarProperty Name="DTCPA_ID_PRODUCTO" ColumnName="DTCPA_ID_PRODUCTO" />
+          <ScalarProperty Name="DTCPA_CANTIDAD" ColumnName="DTCPA_CANTIDAD" />
+          <ScalarProperty Name="DTCPA_TOTAL" ColumnName="DTCPA_TOTAL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MARCA">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.MARCA">
+        <MappingFragment StoreEntitySet="MARCA">
+          <ScalarProperty Name="MCA_ID" ColumnName="MCA_ID" />
+          <ScalarProperty Name="MCA_DESCRIPCION" ColumnName="MCA_DESCRIPCION" />
+          <ScalarProperty Name="MCA_ACTIVO" ColumnName="MCA_ACTIVO" />
+          <ScalarProperty Name="MCA_FECHA_REGISTRO" ColumnName="MCA_FECHA_REGISTRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTO">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.PRODUCTO">
+        <MappingFragment StoreEntitySet="PRODUCTO">
+          <ScalarProperty Name="PRD_ID" ColumnName="PRD_ID" />
+          <ScalarProperty Name="PRD_ID_USUARIO_FK" ColumnName="PRD_ID_USUARIO_FK" />
+          <ScalarProperty Name="PRD_NOMBRE" ColumnName="PRD_NOMBRE" />
+          <ScalarProperty Name="PRD_DESCRIPCION" ColumnName="PRD_DESCRIPCION" />
+          <ScalarProperty Name="PRD_ID_MARCA_FK" ColumnName="PRD_ID_MARCA_FK" />
+          <ScalarProperty Name="PRD_ID_CATEGORIA_FK" ColumnName="PRD_ID_CATEGORIA_FK" />
+          <ScalarProperty Name="PRD_PRECIO" ColumnName="PRD_PRECIO" />
+          <ScalarProperty Name="PRD_STOCK" ColumnName="PRD_STOCK" />
+          <ScalarProperty Name="PRD_ACTIVO" ColumnName="PRD_ACTIVO" />
+          <ScalarProperty Name="PRD_FECHA_REGISTRO" ColumnName="PRD_FECHA_REGISTRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROL">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.ROL">
+        <MappingFragment StoreEntitySet="ROL">
+          <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+          <ScalarProperty Name="ROL_DESCRIPCION" ColumnName="ROL_DESCRIPCION" />
+          <ScalarProperty Name="ROL_ACTIVO" ColumnName="ROL_ACTIVO" />
+          <ScalarProperty Name="ROL_FECHA_REGISTRO" ColumnName="ROL_FECHA_REGISTRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USR_DIRECCION">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.USR_DIRECCION">
+        <MappingFragment StoreEntitySet="USR_DIRECCION">
+          <ScalarProperty Name="DIR_ID" ColumnName="DIR_ID" />
+          <ScalarProperty Name="DIR_ID_USUARIO_FK" ColumnName="DIR_ID_USUARIO_FK" />
+          <ScalarProperty Name="DIR_EXACTA" ColumnName="DIR_EXACTA" />
+          <ScalarProperty Name="DIR_PAIS" ColumnName="DIR_PAIS" />
+          <ScalarProperty Name="DIR_PROVINCIA" ColumnName="DIR_PROVINCIA" />
+          <ScalarProperty Name="DIR_CANTON" ColumnName="DIR_CANTON" />
+          <ScalarProperty Name="DIR_DISTRITO" ColumnName="DIR_DISTRITO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USR_TELEFONO">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.USR_TELEFONO">
+        <MappingFragment StoreEntitySet="USR_TELEFONO">
+          <ScalarProperty Name="TEL_ID" ColumnName="TEL_ID" />
+          <ScalarProperty Name="TEL_ID_USUARIO_FK" ColumnName="TEL_ID_USUARIO_FK" />
+          <ScalarProperty Name="TEL_NUMERO" ColumnName="TEL_NUMERO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="DB_TIENDAModel.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
+          <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+          <ScalarProperty Name="USR_NOMBRE" ColumnName="USR_NOMBRE" />
+          <ScalarProperty Name="USR_IDENTIFICACION" ColumnName="USR_IDENTIFICACION" />
+          <ScalarProperty Name="USR_CORREO" ColumnName="USR_CORREO" />
+          <ScalarProperty Name="USR_CONTRASENNA" ColumnName="USR_CONTRASENNA" />
+          <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
+          <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
+          <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_CATEGORIA" />
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_DIRECCION" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_DIRECCION" />
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_MARCA" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_MARCA" />
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_PRODUCTO" />
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_ROL" />
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO" />
+    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO_ADM" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO_ADM" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_PRODUCTO_CARRITO" />
+    <FunctionImportMapping FunctionImportName="SP_INCIAR_SESION" FunctionName="DB_TIENDAModel.Store.SP_INCIAR_SESION">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_TIENDAModel.SP_INCIAR_SESION_Result">
+          <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+          <ScalarProperty Name="USR_NOMBRE" ColumnName="USR_NOMBRE" />
+          <ScalarProperty Name="USR_IDENTIFICACION" ColumnName="USR_IDENTIFICACION" />
+          <ScalarProperty Name="USR_CORREO" ColumnName="USR_CORREO" />
+          <ScalarProperty Name="USR_CONTRASENNA" ColumnName="USR_CONTRASENNA" />
+          <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
+          <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
+          <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_CATEGORIA" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_DIRECCION" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_DIRECCION" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ERROR" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ERROR" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ERROR_ID" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ERROR_ID" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_MARCA" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_MARCA" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_PRODUCTO" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_PRODUCTO_CARRITO" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ROL" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIO" />
+    <FunctionImportMapping FunctionImportName="SP_RECOVERY_TOKEN" FunctionName="DB_TIENDAModel.Store.SP_RECOVERY_TOKEN" />
+    <FunctionImportMapping FunctionImportName="SP_ANNADIR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ANNADIR_CANTIDAD_PRODUCTO" />
+    <FunctionImportMapping FunctionImportName="SP_RESTAR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_RESTAR_CANTIDAD_PRODUCTO" />
+  </EntityContainerMapping>
+</Mapping>

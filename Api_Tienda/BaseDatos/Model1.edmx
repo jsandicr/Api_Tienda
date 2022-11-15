@@ -1,0 +1,1108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_TIENDAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BITACORA">
+          <Key>
+            <PropertyRef Name="ERROR_ID" />
+          </Key>
+          <Property Name="ERROR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ERROR_USR_FK" Type="int" Nullable="false" />
+          <Property Name="ERROR_FECHA_HORA" Type="datetime" Nullable="false" />
+          <Property Name="ERROR_CODIGO" Type="int" Nullable="false" />
+          <Property Name="ERROR_MENSAJE" Type="varchar(max)" Nullable="false" />
+          <Property Name="ERROR_ORIGEN" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CARRITO">
+          <Key>
+            <PropertyRef Name="CAR_ID" />
+          </Key>
+          <Property Name="CAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAR_ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="CAR_ID_PRODUCTO" Type="int" Nullable="false" />
+          <Property Name="CAR_CANTIDAD_X_PRODUCTO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="CAT_ID" />
+          </Key>
+          <Property Name="CAT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAT_DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="CAT_ACTVIVO" Type="bit" />
+          <Property Name="CAT_FECHA_REGISTRO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="COMPRA">
+          <Key>
+            <PropertyRef Name="CPA_ID" />
+          </Key>
+          <Property Name="CPA_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPA_ID_USUARIO" Type="int" />
+          <Property Name="CPA_CANTIDAD_PRODUCTO" Type="int" />
+          <Property Name="CPA_TOTAL_COMPRA" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="CPA_FECHA" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DETALLE_COMPRA">
+          <Key>
+            <PropertyRef Name="DTCPA_ID" />
+          </Key>
+          <Property Name="DTCPA_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DTCPA_ID_COMPRA" Type="int" />
+          <Property Name="DTCPA_ID_PRODUCTO" Type="int" />
+          <Property Name="DTCPA_CANTIDAD" Type="int" />
+          <Property Name="DTCPA_TOTAL" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="MARCA">
+          <Key>
+            <PropertyRef Name="MCA_ID" />
+          </Key>
+          <Property Name="MCA_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MCA_DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="MCA_ACTIVO" Type="bit" />
+          <Property Name="MCA_FECHA_REGISTRO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="PRD_ID" />
+          </Key>
+          <Property Name="PRD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PRD_ID_USUARIO_FK" Type="int" />
+          <Property Name="PRD_NOMBRE" Type="varchar" MaxLength="500" />
+          <Property Name="PRD_DESCRIPCION" Type="varchar" MaxLength="500" />
+          <Property Name="PRD_ID_MARCA_FK" Type="int" />
+          <Property Name="PRD_ID_CATEGORIA_FK" Type="int" />
+          <Property Name="PRD_PRECIO" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="PRD_STOCK" Type="int" />
+          <Property Name="PRD_ACTIVO" Type="bit" />
+          <Property Name="PRD_FECHA_REGISTRO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ROL_ID" />
+          </Key>
+          <Property Name="ROL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ROL_DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="ROL_ACTIVO" Type="bit" />
+          <Property Name="ROL_FECHA_REGISTRO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="USR_DIRECCION">
+          <Key>
+            <PropertyRef Name="DIR_ID" />
+          </Key>
+          <Property Name="DIR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DIR_ID_USUARIO_FK" Type="int" />
+          <Property Name="DIR_EXACTA" Type="varchar" MaxLength="255" />
+          <Property Name="DIR_PAIS" Type="varchar" MaxLength="50" />
+          <Property Name="DIR_PROVINCIA" Type="varchar" MaxLength="50" />
+          <Property Name="DIR_CANTON" Type="varchar" MaxLength="50" />
+          <Property Name="DIR_DISTRITO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USR_TELEFONO">
+          <Key>
+            <PropertyRef Name="TEL_ID" />
+          </Key>
+          <Property Name="TEL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEL_ID_USUARIO_FK" Type="int" />
+          <Property Name="TEL_NUMERO" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USR_NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="USR_IDENTIFICACION" Type="varchar" MaxLength="50" />
+          <Property Name="USR_CORREO" Type="varchar" MaxLength="100" />
+          <Property Name="USR_CONTRASENNA" Type="varchar" MaxLength="100" />
+          <Property Name="USR_ROL" Type="int" />
+          <Property Name="USR_ACTIVO" Type="bit" />
+          <Property Name="USR_FECHA_REGISTRO" Type="datetime" />
+          <Property Name="USR_RECOVERY_TOKEN" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__CARRITO__CAR_ID___4CA06362">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="CAR_ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARRITO__CAR_ID___4D94879B">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="CAR_ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMPRA__CPA_ID_U__4222D4EF">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="CPA_ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__DTCPA__45F365D3">
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="0..1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRA">
+              <PropertyRef Name="CPA_ID" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="DTCPA_ID_COMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__DTCPA__46E78A0C">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="0..1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="DTCPA_ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTO__PRD_ID__3A81B327">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID_USUARIO_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTO__PRD_ID__3B75D760">
+          <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="MCA_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID_MARCA_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTO__PRD_ID__3C69FB99">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="CAT_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID_CATEGORIA_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USR_DIREC__DIR_I__300424B4">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="USR_DIRECCION" Type="Self.USR_DIRECCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="USR_DIRECCION">
+              <PropertyRef Name="DIR_ID_USUARIO_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USR_TELEF__TEL_I__2D27B809">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="USR_TELEFONO" Type="Self.USR_TELEFONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="USR_TELEFONO">
+              <PropertyRef Name="TEL_ID_USUARIO_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIO__USR_ROL__286302EC">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ROL_ID" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="USR_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BITACORA_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="ERROR_USR_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_ACTUALIZAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_DESCRIPCION" Type="int" Mode="In" />
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+          <Parameter Name="ACTVIVO" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_ACTUALIZAR_DIRECCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="EXACTA" Type="varchar" Mode="In" />
+          <Parameter Name="PAIS" Type="varchar" Mode="In" />
+          <Parameter Name="PROVINCIA" Type="varchar" Mode="In" />
+          <Parameter Name="CANTON" Type="varchar" Mode="In" />
+          <Parameter Name="DISTRITO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ACTUALIZAR_MARCA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_MARCA" Type="int" Mode="In" />
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+          <Parameter Name="ACTIVO" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_ACTUALIZAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+          <Parameter Name="ID_MARCA" Type="int" Mode="In" />
+          <Parameter Name="ID_CATEGORIA" Type="int" Mode="In" />
+          <Parameter Name="PRECIO" Type="decimal" Mode="In" />
+          <Parameter Name="STOCK" Type="int" Mode="In" />
+          <Parameter Name="ACTIVO" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_ACTUALIZAR_ROL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+          <Parameter Name="ACTIVO" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_ACTUALIZAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ACTUALIZAR_USUARIO_ADM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+          <Parameter Name="ROL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ANNADIR_CANTIDAD_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PRODUCTO_CARRITO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CAR_ID" Type="int" Mode="In" />
+          <Parameter Name="PRD_ID" Type="int" Mode="In" />
+          <Parameter Name="CANTIDAD_PRODUCTO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_INCIAR_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="CONTRASENNA" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_RECOVERY_TOKEN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USR_RECOVERY_TOKEN" Type="varchar" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_DIRECCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="EXACTA" Type="varchar" Mode="In" />
+          <Parameter Name="PAIS" Type="varchar" Mode="In" />
+          <Parameter Name="PROVINCIA" Type="varchar" Mode="In" />
+          <Parameter Name="CANTON" Type="varchar" Mode="In" />
+          <Parameter Name="DISTRITO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_ERROR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+          <Parameter Name="ERROR_CODIGO" Type="int" Mode="In" />
+          <Parameter Name="ERROR_MENSAJE" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ERROR_ORIGEN" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_ERROR_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ERROR_USR_FK" Type="int" Mode="In" />
+          <Parameter Name="ERROR_CODIGO" Type="int" Mode="In" />
+          <Parameter Name="ERROR_MENSAJE" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ERROR_ORIGEN" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_MARCA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+          <Parameter Name="ID_MARCA" Type="int" Mode="In" />
+          <Parameter Name="ID_CATEGORIA" Type="int" Mode="In" />
+          <Parameter Name="PRECIO" Type="decimal" Mode="In" />
+          <Parameter Name="STOCK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_PRODUCTO_CARRITO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USR_ID" Type="int" Mode="In" />
+          <Parameter Name="PRD_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_ROL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_REGISTRAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="IDENTIFICACION" Type="varchar" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="CONTRASENNA" Type="varchar" Mode="In" />
+          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_RESTAR_CANTIDAD_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DB_TIENDAModelStoreContainer">
+          <EntitySet Name="BITACORA" EntityType="Self.BITACORA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CARRITO" EntityType="Self.CARRITO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPRA" EntityType="Self.COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_COMPRA" EntityType="Self.DETALLE_COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USR_DIRECCION" EntityType="Self.USR_DIRECCION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USR_TELEFONO" EntityType="Self.USR_TELEFONO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CARRITO__CAR_ID___4CA06362" Association="Self.FK__CARRITO__CAR_ID___4CA06362">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARRITO__CAR_ID___4D94879B" Association="Self.FK__CARRITO__CAR_ID___4D94879B">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMPRA__CPA_ID_U__4222D4EF" Association="Self.FK__COMPRA__CPA_ID_U__4222D4EF">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="COMPRA" EntitySet="COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__DTCPA__45F365D3" Association="Self.FK__DETALLE_C__DTCPA__45F365D3">
+            <End Role="COMPRA" EntitySet="COMPRA" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__DTCPA__46E78A0C" Association="Self.FK__DETALLE_C__DTCPA__46E78A0C">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3A81B327" Association="Self.FK__PRODUCTO__PRD_ID__3A81B327">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3B75D760" Association="Self.FK__PRODUCTO__PRD_ID__3B75D760">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3C69FB99" Association="Self.FK__PRODUCTO__PRD_ID__3C69FB99">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USR_DIREC__DIR_I__300424B4" Association="Self.FK__USR_DIREC__DIR_I__300424B4">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USR_DIRECCION" EntitySet="USR_DIRECCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USR_TELEF__TEL_I__2D27B809" Association="Self.FK__USR_TELEF__TEL_I__2D27B809">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USR_TELEFONO" EntitySet="USR_TELEFONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIO__USR_ROL__286302EC" Association="Self.FK__USUARIO__USR_ROL__286302EC">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BITACORA_USUARIO" Association="Self.FK_BITACORA_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="BITACORA" EntitySet="BITACORA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_TIENDAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BITACORA">
+          <Key>
+            <PropertyRef Name="ERROR_ID" />
+          </Key>
+          <Property Name="ERROR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ERROR_USR_FK" Type="Int32" Nullable="false" />
+          <Property Name="ERROR_FECHA_HORA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ERROR_CODIGO" Type="Int32" Nullable="false" />
+          <Property Name="ERROR_MENSAJE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ERROR_ORIGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_BITACORA_USUARIO" FromRole="BITACORA" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="CARRITO">
+          <Key>
+            <PropertyRef Name="CAR_ID" />
+          </Key>
+          <Property Name="CAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CAR_ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="CAR_ID_PRODUCTO" Type="Int32" Nullable="false" />
+          <Property Name="CAR_CANTIDAD_X_PRODUCTO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__CARRITO__CAR_ID___4CA06362" FromRole="CARRITO" ToRole="USUARIO" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__CARRITO__CAR_ID___4D94879B" FromRole="CARRITO" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="CAT_ID" />
+          </Key>
+          <Property Name="CAT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CAT_DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CAT_ACTVIVO" Type="Boolean" />
+          <Property Name="CAT_FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__PRODUCTO__PRD_ID__3C69FB99" FromRole="CATEGORIA" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="COMPRA">
+          <Key>
+            <PropertyRef Name="CPA_ID" />
+          </Key>
+          <Property Name="CPA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPA_ID_USUARIO" Type="Int32" />
+          <Property Name="CPA_CANTIDAD_PRODUCTO" Type="Int32" />
+          <Property Name="CPA_TOTAL_COMPRA" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CPA_FECHA" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__COMPRA__CPA_ID_U__4222D4EF" FromRole="COMPRA" ToRole="USUARIO" />
+          <NavigationProperty Name="DETALLE_COMPRA" Relationship="Self.FK__DETALLE_C__DTCPA__45F365D3" FromRole="COMPRA" ToRole="DETALLE_COMPRA" />
+        </EntityType>
+        <EntityType Name="DETALLE_COMPRA">
+          <Key>
+            <PropertyRef Name="DTCPA_ID" />
+          </Key>
+          <Property Name="DTCPA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DTCPA_ID_COMPRA" Type="Int32" />
+          <Property Name="DTCPA_ID_PRODUCTO" Type="Int32" />
+          <Property Name="DTCPA_CANTIDAD" Type="Int32" />
+          <Property Name="DTCPA_TOTAL" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="COMPRA" Relationship="Self.FK__DETALLE_C__DTCPA__45F365D3" FromRole="DETALLE_COMPRA" ToRole="COMPRA" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__DETALLE_C__DTCPA__46E78A0C" FromRole="DETALLE_COMPRA" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="MARCA">
+          <Key>
+            <PropertyRef Name="MCA_ID" />
+          </Key>
+          <Property Name="MCA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MCA_DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MCA_ACTIVO" Type="Boolean" />
+          <Property Name="MCA_FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__PRODUCTO__PRD_ID__3B75D760" FromRole="MARCA" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="PRD_ID" />
+          </Key>
+          <Property Name="PRD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRD_ID_USUARIO_FK" Type="Int32" />
+          <Property Name="PRD_NOMBRE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PRD_DESCRIPCION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PRD_ID_MARCA_FK" Type="Int32" />
+          <Property Name="PRD_ID_CATEGORIA_FK" Type="Int32" />
+          <Property Name="PRD_PRECIO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PRD_STOCK" Type="Int32" />
+          <Property Name="PRD_ACTIVO" Type="Boolean" />
+          <Property Name="PRD_FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CARRITO" Relationship="Self.FK__CARRITO__CAR_ID___4D94879B" FromRole="PRODUCTO" ToRole="CARRITO" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK__PRODUCTO__PRD_ID__3C69FB99" FromRole="PRODUCTO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="DETALLE_COMPRA" Relationship="Self.FK__DETALLE_C__DTCPA__46E78A0C" FromRole="PRODUCTO" ToRole="DETALLE_COMPRA" />
+          <NavigationProperty Name="MARCA" Relationship="Self.FK__PRODUCTO__PRD_ID__3B75D760" FromRole="PRODUCTO" ToRole="MARCA" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__PRODUCTO__PRD_ID__3A81B327" FromRole="PRODUCTO" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ROL_ID" />
+          </Key>
+          <Property Name="ROL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ROL_DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ROL_ACTIVO" Type="Boolean" />
+          <Property Name="ROL_FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__USUARIO__USR_ROL__286302EC" FromRole="ROL" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="USR_DIRECCION">
+          <Key>
+            <PropertyRef Name="DIR_ID" />
+          </Key>
+          <Property Name="DIR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DIR_ID_USUARIO_FK" Type="Int32" />
+          <Property Name="DIR_EXACTA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DIR_PAIS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIR_PROVINCIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIR_CANTON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIR_DISTRITO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__USR_DIREC__DIR_I__300424B4" FromRole="USR_DIRECCION" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="USR_TELEFONO">
+          <Key>
+            <PropertyRef Name="TEL_ID" />
+          </Key>
+          <Property Name="TEL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEL_ID_USUARIO_FK" Type="Int32" />
+          <Property Name="TEL_NUMERO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__USR_TELEF__TEL_I__2D27B809" FromRole="USR_TELEFONO" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USR_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USR_IDENTIFICACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USR_CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USR_CONTRASENNA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USR_ROL" Type="Int32" />
+          <Property Name="USR_ACTIVO" Type="Boolean" />
+          <Property Name="USR_FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BITACORA" Relationship="Self.FK_BITACORA_USUARIO" FromRole="USUARIO" ToRole="BITACORA" />
+          <NavigationProperty Name="CARRITO" Relationship="Self.FK__CARRITO__CAR_ID___4CA06362" FromRole="USUARIO" ToRole="CARRITO" />
+          <NavigationProperty Name="COMPRA" Relationship="Self.FK__COMPRA__CPA_ID_U__4222D4EF" FromRole="USUARIO" ToRole="COMPRA" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__PRODUCTO__PRD_ID__3A81B327" FromRole="USUARIO" ToRole="PRODUCTO" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK__USUARIO__USR_ROL__286302EC" FromRole="USUARIO" ToRole="ROL" />
+          <NavigationProperty Name="USR_DIRECCION" Relationship="Self.FK__USR_DIREC__DIR_I__300424B4" FromRole="USUARIO" ToRole="USR_DIRECCION" />
+          <NavigationProperty Name="USR_TELEFONO" Relationship="Self.FK__USR_TELEF__TEL_I__2D27B809" FromRole="USUARIO" ToRole="USR_TELEFONO" />
+          <Property Name="USR_RECOVERY_TOKEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_BITACORA_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="ERROR_USR_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARRITO__CAR_ID___4CA06362">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="CAR_ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARRITO__CAR_ID___4D94879B">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="CAR_ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTO__PRD_ID__3C69FB99">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="CAT_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID_CATEGORIA_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMPRA__CPA_ID_U__4222D4EF">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="CPA_ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__DTCPA__45F365D3">
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="0..1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRA">
+              <PropertyRef Name="CPA_ID" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="DTCPA_ID_COMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__DTCPA__46E78A0C">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="0..1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="DTCPA_ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTO__PRD_ID__3B75D760">
+          <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="MCA_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID_MARCA_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTO__PRD_ID__3A81B327">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRD_ID_USUARIO_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIO__USR_ROL__286302EC">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ROL_ID" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="USR_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USR_DIREC__DIR_I__300424B4">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="USR_DIRECCION" Type="Self.USR_DIRECCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="USR_DIRECCION">
+              <PropertyRef Name="DIR_ID_USUARIO_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USR_TELEF__TEL_I__2D27B809">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="USR_TELEFONO" Type="Self.USR_TELEFONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="USR_TELEFONO">
+              <PropertyRef Name="TEL_ID_USUARIO_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_TIENDAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BITACORA" EntityType="Self.BITACORA" />
+          <EntitySet Name="CARRITO" EntityType="Self.CARRITO" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="COMPRA" EntityType="Self.COMPRA" />
+          <EntitySet Name="DETALLE_COMPRA" EntityType="Self.DETALLE_COMPRA" />
+          <EntitySet Name="MARCA" EntityType="Self.MARCA" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" />
+          <EntitySet Name="USR_DIRECCION" EntityType="Self.USR_DIRECCION" />
+          <EntitySet Name="USR_TELEFONO" EntityType="Self.USR_TELEFONO" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK_BITACORA_USUARIO" Association="Self.FK_BITACORA_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="BITACORA" EntitySet="BITACORA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARRITO__CAR_ID___4CA06362" Association="Self.FK__CARRITO__CAR_ID___4CA06362">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARRITO__CAR_ID___4D94879B" Association="Self.FK__CARRITO__CAR_ID___4D94879B">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3C69FB99" Association="Self.FK__PRODUCTO__PRD_ID__3C69FB99">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMPRA__CPA_ID_U__4222D4EF" Association="Self.FK__COMPRA__CPA_ID_U__4222D4EF">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="COMPRA" EntitySet="COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__DTCPA__45F365D3" Association="Self.FK__DETALLE_C__DTCPA__45F365D3">
+            <End Role="COMPRA" EntitySet="COMPRA" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__DTCPA__46E78A0C" Association="Self.FK__DETALLE_C__DTCPA__46E78A0C">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3B75D760" Association="Self.FK__PRODUCTO__PRD_ID__3B75D760">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3A81B327" Association="Self.FK__PRODUCTO__PRD_ID__3A81B327">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIO__USR_ROL__286302EC" Association="Self.FK__USUARIO__USR_ROL__286302EC">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USR_DIREC__DIR_I__300424B4" Association="Self.FK__USR_DIREC__DIR_I__300424B4">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USR_DIRECCION" EntitySet="USR_DIRECCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USR_TELEF__TEL_I__2D27B809" Association="Self.FK__USR_TELEF__TEL_I__2D27B809">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USR_TELEFONO" EntitySet="USR_TELEFONO" />
+          </AssociationSet>
+          <FunctionImport Name="SP_ACTUALIZAR_CATEGORIA">
+            <Parameter Name="ID_DESCRIPCION" Mode="In" Type="Int32" />
+            <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="ACTVIVO" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ACTUALIZAR_DIRECCION">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="EXACTA" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="PROVINCIA" Mode="In" Type="String" />
+            <Parameter Name="CANTON" Mode="In" Type="String" />
+            <Parameter Name="DISTRITO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ACTUALIZAR_MARCA">
+            <Parameter Name="ID_MARCA" Mode="In" Type="Int32" />
+            <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="ACTIVO" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ACTUALIZAR_PRODUCTO">
+            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="ID_MARCA" Mode="In" Type="Int32" />
+            <Parameter Name="ID_CATEGORIA" Mode="In" Type="Int32" />
+            <Parameter Name="PRECIO" Mode="In" Type="Decimal" />
+            <Parameter Name="STOCK" Mode="In" Type="Int32" />
+            <Parameter Name="ACTIVO" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ACTUALIZAR_ROL">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="ACTIVO" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ACTUALIZAR_USUARIO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ACTUALIZAR_USUARIO_ADM">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="ROL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_PRODUCTO_CARRITO">
+            <Parameter Name="CAR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PRD_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CANTIDAD_PRODUCTO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INCIAR_SESION" ReturnType="Collection(DB_TIENDAModel.SP_INCIAR_SESION_Result)">
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="CONTRASENNA" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_CATEGORIA">
+          <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_DIRECCION">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="EXACTA" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="PROVINCIA" Mode="In" Type="String" />
+            <Parameter Name="CANTON" Mode="In" Type="String" />
+            <Parameter Name="DISTRITO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ERROR">
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="ERROR_CODIGO" Mode="In" Type="Int32" />
+            <Parameter Name="ERROR_MENSAJE" Mode="In" Type="String" />
+            <Parameter Name="ERROR_ORIGEN" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ERROR_ID">
+            <Parameter Name="ERROR_USR_FK" Mode="In" Type="Int32" />
+            <Parameter Name="ERROR_CODIGO" Mode="In" Type="Int32" />
+            <Parameter Name="ERROR_MENSAJE" Mode="In" Type="String" />
+            <Parameter Name="ERROR_ORIGEN" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_MARCA">
+          <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_PRODUCTO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="ID_MARCA" Mode="In" Type="Int32" />
+            <Parameter Name="ID_CATEGORIA" Mode="In" Type="Int32" />
+            <Parameter Name="PRECIO" Mode="In" Type="Decimal" />
+            <Parameter Name="STOCK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_PRODUCTO_CARRITO">
+            <Parameter Name="USR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PRD_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ROL">
+          <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_USUARIO">
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="IDENTIFICACION" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="CONTRASENNA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RECOVERY_TOKEN">
+            <Parameter Name="USR_RECOVERY_TOKEN" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ANNADIR_CANTIDAD_PRODUCTO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RESTAR_CANTIDAD_PRODUCTO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_INCIAR_SESION_Result">
+          <Property Type="Int32" Name="USR_ID" Nullable="false" />
+          <Property Type="String" Name="USR_NOMBRE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="USR_IDENTIFICACION" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="USR_CORREO" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="USR_CONTRASENNA" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="USR_ROL" Nullable="true" />
+          <Property Type="Boolean" Name="USR_ACTIVO" Nullable="true" />
+          <Property Type="DateTime" Name="USR_FECHA_REGISTRO" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_TIENDAModelStoreContainer" CdmEntityContainer="DB_TIENDAEntities">
+          <EntitySetMapping Name="BITACORA">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.BITACORA">
+              <MappingFragment StoreEntitySet="BITACORA">
+                <ScalarProperty Name="ERROR_ID" ColumnName="ERROR_ID" />
+                <ScalarProperty Name="ERROR_USR_FK" ColumnName="ERROR_USR_FK" />
+                <ScalarProperty Name="ERROR_FECHA_HORA" ColumnName="ERROR_FECHA_HORA" />
+                <ScalarProperty Name="ERROR_CODIGO" ColumnName="ERROR_CODIGO" />
+                <ScalarProperty Name="ERROR_MENSAJE" ColumnName="ERROR_MENSAJE" />
+                <ScalarProperty Name="ERROR_ORIGEN" ColumnName="ERROR_ORIGEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARRITO">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.CARRITO">
+              <MappingFragment StoreEntitySet="CARRITO">
+                <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+                <ScalarProperty Name="CAR_ID_USUARIO" ColumnName="CAR_ID_USUARIO" />
+                <ScalarProperty Name="CAR_ID_PRODUCTO" ColumnName="CAR_ID_PRODUCTO" />
+                <ScalarProperty Name="CAR_CANTIDAD_X_PRODUCTO" ColumnName="CAR_CANTIDAD_X_PRODUCTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="CAT_ID" ColumnName="CAT_ID" />
+                <ScalarProperty Name="CAT_DESCRIPCION" ColumnName="CAT_DESCRIPCION" />
+                <ScalarProperty Name="CAT_ACTVIVO" ColumnName="CAT_ACTVIVO" />
+                <ScalarProperty Name="CAT_FECHA_REGISTRO" ColumnName="CAT_FECHA_REGISTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPRA">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.COMPRA">
+              <MappingFragment StoreEntitySet="COMPRA">
+                <ScalarProperty Name="CPA_ID" ColumnName="CPA_ID" />
+                <ScalarProperty Name="CPA_ID_USUARIO" ColumnName="CPA_ID_USUARIO" />
+                <ScalarProperty Name="CPA_CANTIDAD_PRODUCTO" ColumnName="CPA_CANTIDAD_PRODUCTO" />
+                <ScalarProperty Name="CPA_TOTAL_COMPRA" ColumnName="CPA_TOTAL_COMPRA" />
+                <ScalarProperty Name="CPA_FECHA" ColumnName="CPA_FECHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_COMPRA">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.DETALLE_COMPRA">
+              <MappingFragment StoreEntitySet="DETALLE_COMPRA">
+                <ScalarProperty Name="DTCPA_ID" ColumnName="DTCPA_ID" />
+                <ScalarProperty Name="DTCPA_ID_COMPRA" ColumnName="DTCPA_ID_COMPRA" />
+                <ScalarProperty Name="DTCPA_ID_PRODUCTO" ColumnName="DTCPA_ID_PRODUCTO" />
+                <ScalarProperty Name="DTCPA_CANTIDAD" ColumnName="DTCPA_CANTIDAD" />
+                <ScalarProperty Name="DTCPA_TOTAL" ColumnName="DTCPA_TOTAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MARCA">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.MARCA">
+              <MappingFragment StoreEntitySet="MARCA">
+                <ScalarProperty Name="MCA_ID" ColumnName="MCA_ID" />
+                <ScalarProperty Name="MCA_DESCRIPCION" ColumnName="MCA_DESCRIPCION" />
+                <ScalarProperty Name="MCA_ACTIVO" ColumnName="MCA_ACTIVO" />
+                <ScalarProperty Name="MCA_FECHA_REGISTRO" ColumnName="MCA_FECHA_REGISTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTO">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.PRODUCTO">
+              <MappingFragment StoreEntitySet="PRODUCTO">
+                <ScalarProperty Name="PRD_ID" ColumnName="PRD_ID" />
+                <ScalarProperty Name="PRD_ID_USUARIO_FK" ColumnName="PRD_ID_USUARIO_FK" />
+                <ScalarProperty Name="PRD_NOMBRE" ColumnName="PRD_NOMBRE" />
+                <ScalarProperty Name="PRD_DESCRIPCION" ColumnName="PRD_DESCRIPCION" />
+                <ScalarProperty Name="PRD_ID_MARCA_FK" ColumnName="PRD_ID_MARCA_FK" />
+                <ScalarProperty Name="PRD_ID_CATEGORIA_FK" ColumnName="PRD_ID_CATEGORIA_FK" />
+                <ScalarProperty Name="PRD_PRECIO" ColumnName="PRD_PRECIO" />
+                <ScalarProperty Name="PRD_STOCK" ColumnName="PRD_STOCK" />
+                <ScalarProperty Name="PRD_ACTIVO" ColumnName="PRD_ACTIVO" />
+                <ScalarProperty Name="PRD_FECHA_REGISTRO" ColumnName="PRD_FECHA_REGISTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+                <ScalarProperty Name="ROL_DESCRIPCION" ColumnName="ROL_DESCRIPCION" />
+                <ScalarProperty Name="ROL_ACTIVO" ColumnName="ROL_ACTIVO" />
+                <ScalarProperty Name="ROL_FECHA_REGISTRO" ColumnName="ROL_FECHA_REGISTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USR_DIRECCION">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.USR_DIRECCION">
+              <MappingFragment StoreEntitySet="USR_DIRECCION">
+                <ScalarProperty Name="DIR_ID" ColumnName="DIR_ID" />
+                <ScalarProperty Name="DIR_ID_USUARIO_FK" ColumnName="DIR_ID_USUARIO_FK" />
+                <ScalarProperty Name="DIR_EXACTA" ColumnName="DIR_EXACTA" />
+                <ScalarProperty Name="DIR_PAIS" ColumnName="DIR_PAIS" />
+                <ScalarProperty Name="DIR_PROVINCIA" ColumnName="DIR_PROVINCIA" />
+                <ScalarProperty Name="DIR_CANTON" ColumnName="DIR_CANTON" />
+                <ScalarProperty Name="DIR_DISTRITO" ColumnName="DIR_DISTRITO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USR_TELEFONO">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.USR_TELEFONO">
+              <MappingFragment StoreEntitySet="USR_TELEFONO">
+                <ScalarProperty Name="TEL_ID" ColumnName="TEL_ID" />
+                <ScalarProperty Name="TEL_ID_USUARIO_FK" ColumnName="TEL_ID_USUARIO_FK" />
+                <ScalarProperty Name="TEL_NUMERO" ColumnName="TEL_NUMERO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="DB_TIENDAModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="USR_NOMBRE" ColumnName="USR_NOMBRE" />
+                <ScalarProperty Name="USR_IDENTIFICACION" ColumnName="USR_IDENTIFICACION" />
+                <ScalarProperty Name="USR_CORREO" ColumnName="USR_CORREO" />
+                <ScalarProperty Name="USR_CONTRASENNA" ColumnName="USR_CONTRASENNA" />
+                <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
+                <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
+                <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_CATEGORIA" />
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_DIRECCION" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_DIRECCION" />
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_MARCA" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_MARCA" />
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_PRODUCTO" />
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_ROL" />
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO_ADM" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO_ADM" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_PRODUCTO_CARRITO" />
+          <FunctionImportMapping FunctionImportName="SP_INCIAR_SESION" FunctionName="DB_TIENDAModel.Store.SP_INCIAR_SESION">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_TIENDAModel.SP_INCIAR_SESION_Result">
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="USR_NOMBRE" ColumnName="USR_NOMBRE" />
+                <ScalarProperty Name="USR_IDENTIFICACION" ColumnName="USR_IDENTIFICACION" />
+                <ScalarProperty Name="USR_CORREO" ColumnName="USR_CORREO" />
+                <ScalarProperty Name="USR_CONTRASENNA" ColumnName="USR_CONTRASENNA" />
+                <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
+                <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
+                <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_CATEGORIA" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_DIRECCION" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_DIRECCION" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ERROR" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ERROR" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ERROR_ID" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ERROR_ID" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_MARCA" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_MARCA" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_PRODUCTO" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_PRODUCTO_CARRITO" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ROL" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_RECOVERY_TOKEN" FunctionName="DB_TIENDAModel.Store.SP_RECOVERY_TOKEN" />
+          <FunctionImportMapping FunctionImportName="SP_ANNADIR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ANNADIR_CANTIDAD_PRODUCTO" />
+          <FunctionImportMapping FunctionImportName="SP_RESTAR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_RESTAR_CANTIDAD_PRODUCTO" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
