@@ -22,7 +22,6 @@ namespace Api_Tienda.BaseDatos
         }
     
         public int PRD_ID { get; set; }
-        public Nullable<int> PRD_ID_USUARIO_FK { get; set; }
         public string PRD_NOMBRE { get; set; }
         public string PRD_DESCRIPCION { get; set; }
         public Nullable<int> PRD_ID_MARCA_FK { get; set; }
@@ -38,6 +37,5 @@ namespace Api_Tienda.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETALLE_COMPRA> DETALLE_COMPRA { get; set; }
         public virtual MARCA MARCA { get; set; }
-        public virtual USUARIO USUARIO { get; set; }
     }
 }

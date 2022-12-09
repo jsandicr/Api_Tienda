@@ -63,7 +63,6 @@
       <PropertyRef Name="PRD_ID" />
     </Key>
     <Property Name="PRD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PRD_ID_USUARIO_FK" Type="int" />
     <Property Name="PRD_NOMBRE" Type="varchar" MaxLength="500" />
     <Property Name="PRD_DESCRIPCION" Type="varchar" MaxLength="500" />
     <Property Name="PRD_ID_MARCA_FK" Type="int" />
@@ -81,18 +80,6 @@
     <Property Name="ROL_DESCRIPCION" Type="varchar" MaxLength="100" />
     <Property Name="ROL_ACTIVO" Type="bit" />
     <Property Name="ROL_FECHA_REGISTRO" Type="datetime" />
-  </EntityType>
-  <EntityType Name="USR_DIRECCION">
-    <Key>
-      <PropertyRef Name="DIR_ID" />
-    </Key>
-    <Property Name="DIR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DIR_ID_USUARIO_FK" Type="int" />
-    <Property Name="DIR_EXACTA" Type="varchar" MaxLength="255" />
-    <Property Name="DIR_PAIS" Type="varchar" MaxLength="50" />
-    <Property Name="DIR_PROVINCIA" Type="varchar" MaxLength="50" />
-    <Property Name="DIR_CANTON" Type="varchar" MaxLength="50" />
-    <Property Name="DIR_DISTRITO" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="USR_TELEFONO">
     <Key>
@@ -176,18 +163,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__PRODUCTO__PRD_ID__3A81B327">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="USR_ID" />
-      </Principal>
-      <Dependent Role="PRODUCTO">
-        <PropertyRef Name="PRD_ID_USUARIO_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__PRODUCTO__PRD_ID__3B75D760">
     <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
     <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -209,18 +184,6 @@
       </Principal>
       <Dependent Role="PRODUCTO">
         <PropertyRef Name="PRD_ID_CATEGORIA_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__USR_DIREC__DIR_I__300424B4">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-    <End Role="USR_DIRECCION" Type="Self.USR_DIRECCION" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="USR_ID" />
-      </Principal>
-      <Dependent Role="USR_DIRECCION">
-        <PropertyRef Name="DIR_ID_USUARIO_FK" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -280,7 +243,6 @@
   </Function>
   <Function Name="SP_ACTUALIZAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
-    <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
     <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
     <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
     <Parameter Name="ID_MARCA" Type="int" Mode="In" />
@@ -296,23 +258,35 @@
   </Function>
   <Function Name="SP_ACTUALIZAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
-    <Parameter Name="CORREO" Type="varchar" Mode="In" />
-    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="SP_ACTUALIZAR_USUARIO_ADM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
-    <Parameter Name="CORREO" Type="varchar" Mode="In" />
-    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
     <Parameter Name="ROL" Type="int" Mode="In" />
+    <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+    <Parameter Name="IDENTIFICACION" Type="varchar" Mode="In" />
+    <Parameter Name="CORREO" Type="varchar" Mode="In" />
+    <Parameter Name="ACTIVO" Type="bit" Mode="In" />
   </Function>
   <Function Name="SP_ANNADIR_CANTIDAD_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
     <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
   </Function>
+  <Function Name="SP_ELIMINAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CAT_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ELIMINAR_MARCA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MCA_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ELIMINAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PRD_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_ELIMINAR_PRODUCTO_CARRITO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CAR_ID" Type="int" Mode="In" />
     <Parameter Name="PRD_ID" Type="int" Mode="In" />
     <Parameter Name="CANTIDAD_PRODUCTO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ELIMINAR_ROL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ROL_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ELIMINAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USR_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_INCIAR_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CORREO" Type="varchar" Mode="In" />
@@ -349,7 +323,6 @@
     <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
   </Function>
   <Function Name="SP_REGISTRAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
     <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
     <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
     <Parameter Name="ID_MARCA" Type="int" Mode="In" />
@@ -371,6 +344,14 @@
     <Parameter Name="CONTRASENNA" Type="varchar" Mode="In" />
     <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="SP_REGISTRAR_USUARIOADMIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+    <Parameter Name="IDENTIFICACION" Type="varchar" Mode="In" />
+    <Parameter Name="CORREO" Type="varchar" Mode="In" />
+    <Parameter Name="CONTRASENNA" Type="varchar" Mode="In" />
+    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+    <Parameter Name="ROL" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_RESTAR_CANTIDAD_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
     <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
@@ -384,7 +365,6 @@
     <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="USR_DIRECCION" EntityType="Self.USR_DIRECCION" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USR_TELEFONO" EntityType="Self.USR_TELEFONO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__CARRITO__CAR_ID___4CA06362" Association="Self.FK__CARRITO__CAR_ID___4CA06362">
@@ -407,10 +387,6 @@
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
       <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
     </AssociationSet>
-    <AssociationSet Name="FK__PRODUCTO__PRD_ID__3A81B327" Association="Self.FK__PRODUCTO__PRD_ID__3A81B327">
-      <End Role="USUARIO" EntitySet="USUARIO" />
-      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-    </AssociationSet>
     <AssociationSet Name="FK__PRODUCTO__PRD_ID__3B75D760" Association="Self.FK__PRODUCTO__PRD_ID__3B75D760">
       <End Role="MARCA" EntitySet="MARCA" />
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
@@ -418,10 +394,6 @@
     <AssociationSet Name="FK__PRODUCTO__PRD_ID__3C69FB99" Association="Self.FK__PRODUCTO__PRD_ID__3C69FB99">
       <End Role="CATEGORIA" EntitySet="CATEGORIA" />
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-    </AssociationSet>
-    <AssociationSet Name="FK__USR_DIREC__DIR_I__300424B4" Association="Self.FK__USR_DIREC__DIR_I__300424B4">
-      <End Role="USUARIO" EntitySet="USUARIO" />
-      <End Role="USR_DIRECCION" EntitySet="USR_DIRECCION" />
     </AssociationSet>
     <AssociationSet Name="FK__USR_TELEF__TEL_I__2D27B809" Association="Self.FK__USR_TELEF__TEL_I__2D27B809">
       <End Role="USUARIO" EntitySet="USUARIO" />

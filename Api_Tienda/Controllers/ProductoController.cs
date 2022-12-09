@@ -34,15 +34,54 @@ namespace Api_Tienda.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("api/ProductoAdmin")]
+        public RespuestaProducto GetProductosAdmin()
+        {
+            try
+            {
+                return productoModel.GetProductosAdmin();
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaProducto respuesta = new RespuestaProducto(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         [Authorize]
         [HttpGet]
-        [Route("api/Producto")]
+        [Route("api/Producto/{id}")]
         public RespuestaProducto GetProductoById(int id)
         {
             try
             {
                 return productoModel.GetProductoById(id);
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaProducto respuesta = new RespuestaProducto(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [Authorize]
+        [HttpGet]
+        [Route("api/Producto/Categorias/{id}")]
+        public RespuestaProducto GetProductoByCategoria(int id)
+        {
+            try
+            {
+                return productoModel.GetProductoByCategoria(id);
             }
             catch (Exception ex)
             {
@@ -65,7 +104,7 @@ namespace Api_Tienda.Controllers
             }
             catch (Exception ex)
             {
-                modelError.RegistrarErroresId(producto.IdUsuario, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
                 RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
                 respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
@@ -84,7 +123,26 @@ namespace Api_Tienda.Controllers
             }
             catch (Exception ex)
             {
-                modelError.RegistrarErroresId(producto.IdUsuario, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
+        //[Authorize]
+        [HttpPost]
+        [Route("api/Producto/EliminarProducto")]
+        public RespuestaUsuario EliminarProducto(int IdProducto)
+        {
+            try
+            {
+                return productoModel.EliminarProducto(IdProducto);
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(IdProducto, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
                 RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
                 respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error

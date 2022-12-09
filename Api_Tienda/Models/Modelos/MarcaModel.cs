@@ -9,9 +9,100 @@ namespace Api_Tienda.Models.Modelos
 {
     public class MarcaModel
     {
-        RespuestaUsuario respuestaUsuario = new RespuestaUsuario();
+        MarcaRespuesta respuestaMarca = new MarcaRespuesta();
 
-        public RespuestaUsuario RegistrarMarca(MarcaObj marca)
+        public MarcaRespuesta ObtenerMarcas()
+        {
+            using (var BaseDatos = new DB_TIENDAEntities())
+            {
+                var respuesta = (from x in BaseDatos.MARCA where x.MCA_ACTIVO == true select x).ToList();
+
+                if (respuesta.Count > 0)
+                {
+                    List<MarcaObj> datos = new List<MarcaObj>();
+                    foreach (var item in respuesta)
+                    {
+                        datos.Add(new MarcaObj
+                        {
+                            IdMarca = item.MCA_ID,
+                            Descripcion = item.MCA_DESCRIPCION,
+                            Estado = (bool)item.MCA_ACTIVO
+                        });
+                    }
+                    respuestaMarca.Codigo = 1;
+                    respuestaMarca.Mensaje = "Marcas obtenidas con exito";
+                    respuestaMarca.respuestaLista = datos;
+                }
+                else
+                {
+                    respuestaMarca.Codigo = 0;
+                    respuestaMarca.Mensaje = "No hay marcas aun";
+                }
+
+                return respuestaMarca;
+            }
+        }
+
+        public MarcaRespuesta ObtenerMarcasAdmin()
+        {
+            using (var BaseDatos = new DB_TIENDAEntities())
+            {
+                var respuesta = (from x in BaseDatos.MARCA select x).ToList();
+
+                if (respuesta.Count > 0)
+                {
+                    List<MarcaObj> datos = new List<MarcaObj>();
+                    foreach (var item in respuesta)
+                    {
+                        datos.Add(new MarcaObj
+                        {
+                            IdMarca = item.MCA_ID,
+                            Descripcion = item.MCA_DESCRIPCION,
+                            Estado = (bool)item.MCA_ACTIVO
+                        });
+                    }
+                    respuestaMarca.Codigo = 1;
+                    respuestaMarca.Mensaje = "Marcas obtenidas con exito";
+                    respuestaMarca.respuestaLista = datos;
+                }
+                else
+                {
+                    respuestaMarca.Codigo = 0;
+                    respuestaMarca.Mensaje = "No hay marcas aun";
+                }
+
+                return respuestaMarca;
+            }
+        }
+
+        public MarcaRespuesta GetMarcaById(int id)
+        {
+            MarcaRespuesta respuestaMarca = new MarcaRespuesta();
+            using (var BaseDatos = new DB_TIENDAEntities())
+            {
+                var respuesta = (from x in BaseDatos.MARCA where x.MCA_ID == id select x).FirstOrDefault();
+
+                if (respuesta != null)
+                {
+                    MarcaObj marca = new MarcaObj();
+                    marca.IdMarca = respuesta.MCA_ID;
+                    marca.Descripcion = respuesta.MCA_DESCRIPCION;
+                    marca.Estado = (bool)respuesta.MCA_ACTIVO;
+                    respuestaMarca.Codigo = 1;
+                    respuestaMarca.Mensaje = "Marca obtenida con exito";
+                    respuestaMarca.respuestaObj = marca;
+                }
+                else
+                {
+                    respuestaMarca.Codigo = 0;
+                    respuestaMarca.Mensaje = "No hay marcas";
+                }
+
+                return respuestaMarca;
+            }
+        }
+
+        public MarcaRespuesta RegistrarMarca(MarcaObj marca)
         {
             using (var BaseDatos = new DB_TIENDAEntities())
             {
@@ -19,20 +110,20 @@ namespace Api_Tienda.Models.Modelos
 
                 if (respuesta > 0)
                 {
-                    respuestaUsuario.Codigo = 1;
-                    respuestaUsuario.Mensaje = "Marca registrada correctamente";
+                    respuestaMarca.Codigo = 1;
+                    respuestaMarca.Mensaje = "Marca registrada correctamente";
                 }
                 else
                 {
-                    respuestaUsuario.Codigo = 0;
-                    respuestaUsuario.Mensaje = "Error al registrar marca";
+                    respuestaMarca.Codigo = 0;
+                    respuestaMarca.Mensaje = "Error al registrar marca";
                 }
 
-                return respuestaUsuario;
+                return respuestaMarca;
             }
         }
 
-        public RespuestaUsuario ActualizarMarca(MarcaObj marca)
+        public MarcaRespuesta ActualizarMarca(MarcaObj marca)
         {
             using (var BaseDatos = new DB_TIENDAEntities())
             {
@@ -40,16 +131,37 @@ namespace Api_Tienda.Models.Modelos
 
                 if (respuesta > 0)
                 {
-                    respuestaUsuario.Codigo = 1;
-                    respuestaUsuario.Mensaje = "Marca actualizada correctamente";
+                    respuestaMarca.Codigo = 1;
+                    respuestaMarca.Mensaje = "Marca actualizada correctamente";
                 }
                 else
                 {
-                    respuestaUsuario.Codigo = 0;
-                    respuestaUsuario.Mensaje = "Error al actualizar marca";
+                    respuestaMarca.Codigo = 0;
+                    respuestaMarca.Mensaje = "Error al actualizar marca";
                 }
 
-                return respuestaUsuario;
+                return respuestaMarca;
+            }
+        }
+
+        public MarcaRespuesta EliminarMarca(int IdMarca)
+        {
+            using (var BaseDatos = new DB_TIENDAEntities())
+            {
+                var respuesta = BaseDatos.SP_ELIMINAR_MARCA(IdMarca);
+
+                if (respuesta > 0)
+                {
+                    respuestaMarca.Codigo = 1;
+                    respuestaMarca.Mensaje = "Marca eliminada correctamente";
+                }
+                else
+                {
+                    respuestaMarca.Codigo = 0;
+                    respuestaMarca.Mensaje = "Error al eliminar marca";
+                }
+
+                return respuestaMarca;
             }
         }
     }

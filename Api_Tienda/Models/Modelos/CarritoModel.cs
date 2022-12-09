@@ -77,12 +77,12 @@ namespace Api_Tienda.Models.Modelos
         }
 
         //Metodo para aumentar cantidad de articulo en el carrito
-        public RespuestaProducto AumentarCantidadProducto(ProductoObj producto)
+        public RespuestaProducto AumentarCantidadProducto(ProductoObj producto, int usuarioId)
         {
             RespuestaProducto respuestaProducto = new RespuestaProducto();
             using (var BaseDatos = new DB_TIENDAEntities())
             {
-                var respuesta = BaseDatos.SP_ANNADIR_CANTIDAD_PRODUCTO(producto.IdUsuario, producto.IdProducto);
+                var respuesta = BaseDatos.SP_ANNADIR_CANTIDAD_PRODUCTO(usuarioId, producto.IdProducto);
 
                 if (respuesta > 0)
                 {
@@ -100,12 +100,12 @@ namespace Api_Tienda.Models.Modelos
         }
 
         //Metodo para disminuir cantidad de articulo en el carrito
-        public RespuestaProducto RestarCantidadProducto(ProductoObj producto)
+        public RespuestaProducto RestarCantidadProducto(CarritoObj carrito)
         {
             RespuestaProducto respuestaProducto = new RespuestaProducto();
             using (var BaseDatos = new DB_TIENDAEntities())
             {
-                var respuesta = BaseDatos.SP_RESTAR_CANTIDAD_PRODUCTO(producto.IdUsuario, producto.IdProducto);
+                var respuesta = BaseDatos.SP_RESTAR_CANTIDAD_PRODUCTO(carrito.IdUsuario, carrito.IdProducto);
 
                 if (respuesta > 0)
                 {

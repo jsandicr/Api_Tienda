@@ -8,24 +8,21 @@ namespace Api_Tienda.Models.Objetos
     public class UsuarioObj
     {
         public int IdUsuario { get; set; }
-        public int TipoUsuario { get; set; }
+        public RolObj TipoUsuario { get; set; }
         public string Nombre { get; set; }
         public string Identificacion { get; set; }
         public string Correo { get; set; }
         public string Contrasenna { get; set; }
-        public string Telefono { get; set; }
+        public List<TelefonoObj> Telefono { get; set; }
+        public bool Activo { get; set; }
         public string Token { get; set; }
     }
 
-    public class DireccionObj
+    public class TelefonoObj
     {
-        public int IdDireccion { get; set; }
+        public int IdTelefono { get; set; }
         public int IdUsuario { get; set; }
-        public string Exacta { get; set; }
-        public string Pais { get; set; }
-        public string Provincia { get; set; }
-        public string Canton { get; set; }
-        public string Distrito { get; set; }
+        public string Numero { get; set; }
     }
 
     public class RespuestaUsuario

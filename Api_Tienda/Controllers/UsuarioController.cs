@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Api_Tienda.Controllers
 {
@@ -13,6 +14,45 @@ namespace Api_Tienda.Controllers
     {
         UsuarioModel modelUsuario = new UsuarioModel();
         ErrorModel modelError = new ErrorModel();
+
+        [Authorize]
+        [HttpGet]
+        [Route("api/Usuario")]
+        public RespuestaUsuario GetUsuarios()
+        {
+            try
+            {
+                return modelUsuario.GetUsuarios();
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [Authorize]
+        [HttpGet]
+        [Route("api/Usuario/{id}")]
+        public RespuestaUsuario GetUsuarioById(int id)
+        {
+            try
+            {
+                return modelUsuario.GetUsuarioById(id);
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -31,7 +71,25 @@ namespace Api_Tienda.Controllers
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
                 return respuesta; //Retorna los datos
             }
-            
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("api/Usuario/RegistrarUsuarioAdmin")] //Ruta del api
+        public RespuestaUsuario RegistrarUsuarioAdmin(UsuarioObj usuario) //Controller para registrar al usuario
+        {
+            try
+            {
+                return modelUsuario.RegistrarUsuarioAdmin(usuario);
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarError(usuario.Correo, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
         }
 
         [AllowAnonymous]
@@ -71,60 +129,21 @@ namespace Api_Tienda.Controllers
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
                 return respuesta; //Retorna los datos
             }
-            
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
-        [Route("api/Usuario/ActuzalizarUsuarioAdmin")]
-        public RespuestaUsuario ActualizarUsuarioAdmin(UsuarioObj usuario)
+        [Route("api/Usuario/EliminarUsuario")] //Ruta del api
+        public RespuestaUsuario EliminarUsuario(int IdUsuario)
         {
+
             try
             {
-                return modelUsuario.ActualizarUsuarioAdmin(usuario); //Actualizar usuario llamando al model
+                return modelUsuario.EliminarUsuario(IdUsuario); //Eliminar usuario llamando al model
             }
             catch (Exception ex)
             {
-                modelError.RegistrarError(usuario.Correo, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
-                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
-                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
-                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
-                return respuesta; //Retorna los datos
-            }
-        }
-
-        [Authorize]
-        [HttpPost]
-        [Route("api/Usuario/RegistrarDireccion")]
-        public RespuestaUsuario RegistrarDireccion(DireccionObj direccion)
-        {
-            try
-            {
-                return modelUsuario.RegistrarDireccion(direccion); //Registrar direccion llamando al model
-            }
-            catch (Exception ex)
-            {
-                modelError.RegistrarErroresId(direccion.IdUsuario, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
-                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
-                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
-                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
-                return respuesta; //Retorna los datos
-            }
-            
-        }
-
-        [Authorize]
-        [HttpPost]
-        [Route("api/Usuario/ActualizarDireccion")]
-        public RespuestaUsuario ActualizarDireccion(DireccionObj direccion)
-        {
-            try
-            {
-                return modelUsuario.ActualizarDireccion(direccion); //Registrar direccion llamando al model
-            }
-            catch (Exception ex)
-            {
-                modelError.RegistrarErroresId(direccion.IdUsuario, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
                 RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
                 respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error

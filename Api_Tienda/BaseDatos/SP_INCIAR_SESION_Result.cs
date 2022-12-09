@@ -21,5 +21,10 @@ namespace Api_Tienda.BaseDatos
         public Nullable<int> USR_ROL { get; set; }
         public Nullable<bool> USR_ACTIVO { get; set; }
         public Nullable<System.DateTime> USR_FECHA_REGISTRO { get; set; }
+        public string USR_RECOVERY_TOKEN { get; set; }
+        public int ROL_ID { get; set; }
+        public string ROL_DESCRIPCION { get; set; }
+        public Nullable<bool> ROL_ACTIVO { get; set; }
+        public Nullable<System.DateTime> ROL_FECHA_REGISTRO { get; set; }
     }
 }

@@ -35,7 +35,6 @@ namespace Api_Tienda.BaseDatos
         public virtual DbSet<MARCA> MARCA { get; set; }
         public virtual DbSet<PRODUCTO> PRODUCTO { get; set; }
         public virtual DbSet<ROL> ROL { get; set; }
-        public virtual DbSet<USR_DIRECCION> USR_DIRECCION { get; set; }
         public virtual DbSet<USR_TELEFONO> USR_TELEFONO { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
     
@@ -102,15 +101,11 @@ namespace Api_Tienda.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_MARCA", iD_MARCAParameter, dESCRIPCIONParameter, aCTIVOParameter);
         }
     
-        public virtual int SP_ACTUALIZAR_PRODUCTO(Nullable<int> iD_PRODUCTO, Nullable<int> iD_USUARIO, string nOMBRE, string dESCRIPCION, Nullable<int> iD_MARCA, Nullable<int> iD_CATEGORIA, Nullable<decimal> pRECIO, Nullable<int> sTOCK, Nullable<bool> aCTIVO)
+        public virtual int SP_ACTUALIZAR_PRODUCTO(Nullable<int> iD_PRODUCTO, string nOMBRE, string dESCRIPCION, Nullable<int> iD_MARCA, Nullable<int> iD_CATEGORIA, Nullable<decimal> pRECIO, Nullable<int> sTOCK, Nullable<bool> aCTIVO)
         {
             var iD_PRODUCTOParameter = iD_PRODUCTO.HasValue ?
                 new ObjectParameter("ID_PRODUCTO", iD_PRODUCTO) :
                 new ObjectParameter("ID_PRODUCTO", typeof(int));
-    
-            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
-                new ObjectParameter("ID_USUARIO", iD_USUARIO) :
-                new ObjectParameter("ID_USUARIO", typeof(int));
     
             var nOMBREParameter = nOMBRE != null ?
                 new ObjectParameter("NOMBRE", nOMBRE) :
@@ -140,7 +135,7 @@ namespace Api_Tienda.BaseDatos
                 new ObjectParameter("ACTIVO", aCTIVO) :
                 new ObjectParameter("ACTIVO", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_PRODUCTO", iD_PRODUCTOParameter, iD_USUARIOParameter, nOMBREParameter, dESCRIPCIONParameter, iD_MARCAParameter, iD_CATEGORIAParameter, pRECIOParameter, sTOCKParameter, aCTIVOParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_PRODUCTO", iD_PRODUCTOParameter, nOMBREParameter, dESCRIPCIONParameter, iD_MARCAParameter, iD_CATEGORIAParameter, pRECIOParameter, sTOCKParameter, aCTIVOParameter);
         }
     
         public virtual int SP_ACTUALIZAR_ROL(Nullable<int> iD, string dESCRIPCION, Nullable<bool> aCTIVO)
@@ -160,21 +155,33 @@ namespace Api_Tienda.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_ROL", iDParameter, dESCRIPCIONParameter, aCTIVOParameter);
         }
     
-        public virtual int SP_ACTUALIZAR_USUARIO(Nullable<int> iD_USUARIO, string cORREO, string tELEFONO)
+        public virtual int SP_ACTUALIZAR_USUARIO(Nullable<int> iD_USUARIO, Nullable<int> rOL, string nOMBRE, string iDENTIFICACION, string cORREO, Nullable<bool> aCTIVO)
         {
             var iD_USUARIOParameter = iD_USUARIO.HasValue ?
                 new ObjectParameter("ID_USUARIO", iD_USUARIO) :
                 new ObjectParameter("ID_USUARIO", typeof(int));
     
+            var rOLParameter = rOL.HasValue ?
+                new ObjectParameter("ROL", rOL) :
+                new ObjectParameter("ROL", typeof(int));
+    
+            var nOMBREParameter = nOMBRE != null ?
+                new ObjectParameter("NOMBRE", nOMBRE) :
+                new ObjectParameter("NOMBRE", typeof(string));
+    
+            var iDENTIFICACIONParameter = iDENTIFICACION != null ?
+                new ObjectParameter("IDENTIFICACION", iDENTIFICACION) :
+                new ObjectParameter("IDENTIFICACION", typeof(string));
+    
             var cORREOParameter = cORREO != null ?
                 new ObjectParameter("CORREO", cORREO) :
                 new ObjectParameter("CORREO", typeof(string));
     
-            var tELEFONOParameter = tELEFONO != null ?
-                new ObjectParameter("TELEFONO", tELEFONO) :
-                new ObjectParameter("TELEFONO", typeof(string));
+            var aCTIVOParameter = aCTIVO.HasValue ?
+                new ObjectParameter("ACTIVO", aCTIVO) :
+                new ObjectParameter("ACTIVO", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_USUARIO", iD_USUARIOParameter, cORREOParameter, tELEFONOParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_USUARIO", iD_USUARIOParameter, rOLParameter, nOMBREParameter, iDENTIFICACIONParameter, cORREOParameter, aCTIVOParameter);
         }
     
         public virtual int SP_ACTUALIZAR_USUARIO_ADM(Nullable<int> iD_USUARIO, string cORREO, string tELEFONO, Nullable<int> rOL)
@@ -198,6 +205,46 @@ namespace Api_Tienda.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACTUALIZAR_USUARIO_ADM", iD_USUARIOParameter, cORREOParameter, tELEFONOParameter, rOLParameter);
         }
     
+        public virtual int SP_ANNADIR_CANTIDAD_PRODUCTO(Nullable<int> iD_USUARIO, Nullable<int> iD_PRODUCTO)
+        {
+            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
+                new ObjectParameter("ID_USUARIO", iD_USUARIO) :
+                new ObjectParameter("ID_USUARIO", typeof(int));
+    
+            var iD_PRODUCTOParameter = iD_PRODUCTO.HasValue ?
+                new ObjectParameter("ID_PRODUCTO", iD_PRODUCTO) :
+                new ObjectParameter("ID_PRODUCTO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ANNADIR_CANTIDAD_PRODUCTO", iD_USUARIOParameter, iD_PRODUCTOParameter);
+        }
+    
+        public virtual int SP_ELIMINAR_CATEGORIA(Nullable<int> cAT_ID)
+        {
+            var cAT_IDParameter = cAT_ID.HasValue ?
+                new ObjectParameter("CAT_ID", cAT_ID) :
+                new ObjectParameter("CAT_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ELIMINAR_CATEGORIA", cAT_IDParameter);
+        }
+    
+        public virtual int SP_ELIMINAR_MARCA(Nullable<int> mCA_ID)
+        {
+            var mCA_IDParameter = mCA_ID.HasValue ?
+                new ObjectParameter("MCA_ID", mCA_ID) :
+                new ObjectParameter("MCA_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ELIMINAR_MARCA", mCA_IDParameter);
+        }
+    
+        public virtual int SP_ELIMINAR_PRODUCTO(Nullable<int> pRD_ID)
+        {
+            var pRD_IDParameter = pRD_ID.HasValue ?
+                new ObjectParameter("PRD_ID", pRD_ID) :
+                new ObjectParameter("PRD_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ELIMINAR_PRODUCTO", pRD_IDParameter);
+        }
+    
         public virtual int SP_ELIMINAR_PRODUCTO_CARRITO(Nullable<int> cAR_ID, Nullable<int> pRD_ID, Nullable<int> cANTIDAD_PRODUCTO)
         {
             var cAR_IDParameter = cAR_ID.HasValue ?
@@ -215,6 +262,24 @@ namespace Api_Tienda.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ELIMINAR_PRODUCTO_CARRITO", cAR_IDParameter, pRD_IDParameter, cANTIDAD_PRODUCTOParameter);
         }
     
+        public virtual int SP_ELIMINAR_ROL(Nullable<int> rOL_ID)
+        {
+            var rOL_IDParameter = rOL_ID.HasValue ?
+                new ObjectParameter("ROL_ID", rOL_ID) :
+                new ObjectParameter("ROL_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ELIMINAR_ROL", rOL_IDParameter);
+        }
+    
+        public virtual int SP_ELIMINAR_USUARIO(Nullable<int> uSR_ID)
+        {
+            var uSR_IDParameter = uSR_ID.HasValue ?
+                new ObjectParameter("USR_ID", uSR_ID) :
+                new ObjectParameter("USR_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ELIMINAR_USUARIO", uSR_IDParameter);
+        }
+    
         public virtual ObjectResult<SP_INCIAR_SESION_Result> SP_INCIAR_SESION(string cORREO, string cONTRASENNA)
         {
             var cORREOParameter = cORREO != null ?
@@ -226,6 +291,19 @@ namespace Api_Tienda.BaseDatos
                 new ObjectParameter("CONTRASENNA", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_INCIAR_SESION_Result>("SP_INCIAR_SESION", cORREOParameter, cONTRASENNAParameter);
+        }
+    
+        public virtual int SP_RECOVERY_TOKEN(string uSR_RECOVERY_TOKEN, string cORREO)
+        {
+            var uSR_RECOVERY_TOKENParameter = uSR_RECOVERY_TOKEN != null ?
+                new ObjectParameter("USR_RECOVERY_TOKEN", uSR_RECOVERY_TOKEN) :
+                new ObjectParameter("USR_RECOVERY_TOKEN", typeof(string));
+    
+            var cORREOParameter = cORREO != null ?
+                new ObjectParameter("CORREO", cORREO) :
+                new ObjectParameter("CORREO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RECOVERY_TOKEN", uSR_RECOVERY_TOKENParameter, cORREOParameter);
         }
     
         public virtual int SP_REGISTRAR_CATEGORIA(string dESCRIPCION)
@@ -317,12 +395,8 @@ namespace Api_Tienda.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_MARCA", dESCRIPCIONParameter);
         }
     
-        public virtual int SP_REGISTRAR_PRODUCTO(Nullable<int> iD_USUARIO, string nOMBRE, string dESCRIPCION, Nullable<int> iD_MARCA, Nullable<int> iD_CATEGORIA, Nullable<decimal> pRECIO, Nullable<int> sTOCK)
+        public virtual int SP_REGISTRAR_PRODUCTO(string nOMBRE, string dESCRIPCION, Nullable<int> iD_MARCA, Nullable<int> iD_CATEGORIA, Nullable<decimal> pRECIO, Nullable<int> sTOCK)
         {
-            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
-                new ObjectParameter("ID_USUARIO", iD_USUARIO) :
-                new ObjectParameter("ID_USUARIO", typeof(int));
-    
             var nOMBREParameter = nOMBRE != null ?
                 new ObjectParameter("NOMBRE", nOMBRE) :
                 new ObjectParameter("NOMBRE", typeof(string));
@@ -347,7 +421,7 @@ namespace Api_Tienda.BaseDatos
                 new ObjectParameter("STOCK", sTOCK) :
                 new ObjectParameter("STOCK", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_PRODUCTO", iD_USUARIOParameter, nOMBREParameter, dESCRIPCIONParameter, iD_MARCAParameter, iD_CATEGORIAParameter, pRECIOParameter, sTOCKParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_PRODUCTO", nOMBREParameter, dESCRIPCIONParameter, iD_MARCAParameter, iD_CATEGORIAParameter, pRECIOParameter, sTOCKParameter);
         }
     
         public virtual int SP_REGISTRAR_PRODUCTO_CARRITO(Nullable<int> uSR_ID, Nullable<int> pRD_ID)
@@ -397,32 +471,6 @@ namespace Api_Tienda.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_USUARIO", nOMBREParameter, iDENTIFICACIONParameter, cORREOParameter, cONTRASENNAParameter, tELEFONOParameter);
         }
     
-        public virtual int SP_RECOVERY_TOKEN(string uSR_RECOVERY_TOKEN, string cORREO)
-        {
-            var uSR_RECOVERY_TOKENParameter = uSR_RECOVERY_TOKEN != null ?
-                new ObjectParameter("USR_RECOVERY_TOKEN", uSR_RECOVERY_TOKEN) :
-                new ObjectParameter("USR_RECOVERY_TOKEN", typeof(string));
-    
-            var cORREOParameter = cORREO != null ?
-                new ObjectParameter("CORREO", cORREO) :
-                new ObjectParameter("CORREO", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RECOVERY_TOKEN", uSR_RECOVERY_TOKENParameter, cORREOParameter);
-        }
-    
-        public virtual int SP_ANNADIR_CANTIDAD_PRODUCTO(Nullable<int> iD_USUARIO, Nullable<int> iD_PRODUCTO)
-        {
-            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
-                new ObjectParameter("ID_USUARIO", iD_USUARIO) :
-                new ObjectParameter("ID_USUARIO", typeof(int));
-    
-            var iD_PRODUCTOParameter = iD_PRODUCTO.HasValue ?
-                new ObjectParameter("ID_PRODUCTO", iD_PRODUCTO) :
-                new ObjectParameter("ID_PRODUCTO", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ANNADIR_CANTIDAD_PRODUCTO", iD_USUARIOParameter, iD_PRODUCTOParameter);
-        }
-    
         public virtual int SP_RESTAR_CANTIDAD_PRODUCTO(Nullable<int> iD_USUARIO, Nullable<int> iD_PRODUCTO)
         {
             var iD_USUARIOParameter = iD_USUARIO.HasValue ?
@@ -434,6 +482,35 @@ namespace Api_Tienda.BaseDatos
                 new ObjectParameter("ID_PRODUCTO", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RESTAR_CANTIDAD_PRODUCTO", iD_USUARIOParameter, iD_PRODUCTOParameter);
+        }
+    
+        public virtual int SP_REGISTRAR_USUARIOADMIN(string nOMBRE, string iDENTIFICACION, string cORREO, string cONTRASENNA, string tELEFONO, Nullable<int> rOL)
+        {
+            var nOMBREParameter = nOMBRE != null ?
+                new ObjectParameter("NOMBRE", nOMBRE) :
+                new ObjectParameter("NOMBRE", typeof(string));
+    
+            var iDENTIFICACIONParameter = iDENTIFICACION != null ?
+                new ObjectParameter("IDENTIFICACION", iDENTIFICACION) :
+                new ObjectParameter("IDENTIFICACION", typeof(string));
+    
+            var cORREOParameter = cORREO != null ?
+                new ObjectParameter("CORREO", cORREO) :
+                new ObjectParameter("CORREO", typeof(string));
+    
+            var cONTRASENNAParameter = cONTRASENNA != null ?
+                new ObjectParameter("CONTRASENNA", cONTRASENNA) :
+                new ObjectParameter("CONTRASENNA", typeof(string));
+    
+            var tELEFONOParameter = tELEFONO != null ?
+                new ObjectParameter("TELEFONO", tELEFONO) :
+                new ObjectParameter("TELEFONO", typeof(string));
+    
+            var rOLParameter = rOL.HasValue ?
+                new ObjectParameter("ROL", rOL) :
+                new ObjectParameter("ROL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_USUARIOADMIN", nOMBREParameter, iDENTIFICACIONParameter, cORREOParameter, cONTRASENNAParameter, tELEFONOParameter, rOLParameter);
         }
     }
 }

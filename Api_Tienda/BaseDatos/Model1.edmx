@@ -68,7 +68,6 @@
             <PropertyRef Name="PRD_ID" />
           </Key>
           <Property Name="PRD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PRD_ID_USUARIO_FK" Type="int" />
           <Property Name="PRD_NOMBRE" Type="varchar" MaxLength="500" />
           <Property Name="PRD_DESCRIPCION" Type="varchar" MaxLength="500" />
           <Property Name="PRD_ID_MARCA_FK" Type="int" />
@@ -86,18 +85,6 @@
           <Property Name="ROL_DESCRIPCION" Type="varchar" MaxLength="100" />
           <Property Name="ROL_ACTIVO" Type="bit" />
           <Property Name="ROL_FECHA_REGISTRO" Type="datetime" />
-        </EntityType>
-        <EntityType Name="USR_DIRECCION">
-          <Key>
-            <PropertyRef Name="DIR_ID" />
-          </Key>
-          <Property Name="DIR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DIR_ID_USUARIO_FK" Type="int" />
-          <Property Name="DIR_EXACTA" Type="varchar" MaxLength="255" />
-          <Property Name="DIR_PAIS" Type="varchar" MaxLength="50" />
-          <Property Name="DIR_PROVINCIA" Type="varchar" MaxLength="50" />
-          <Property Name="DIR_CANTON" Type="varchar" MaxLength="50" />
-          <Property Name="DIR_DISTRITO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="USR_TELEFONO">
           <Key>
@@ -181,18 +168,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PRODUCTO__PRD_ID__3A81B327">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="USR_ID" />
-            </Principal>
-            <Dependent Role="PRODUCTO">
-              <PropertyRef Name="PRD_ID_USUARIO_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__PRODUCTO__PRD_ID__3B75D760">
           <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
           <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -214,18 +189,6 @@
             </Principal>
             <Dependent Role="PRODUCTO">
               <PropertyRef Name="PRD_ID_CATEGORIA_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__USR_DIREC__DIR_I__300424B4">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-          <End Role="USR_DIRECCION" Type="Self.USR_DIRECCION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="USR_ID" />
-            </Principal>
-            <Dependent Role="USR_DIRECCION">
-              <PropertyRef Name="DIR_ID_USUARIO_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -285,7 +248,6 @@
         </Function>
         <Function Name="SP_ACTUALIZAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
-          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
           <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
           <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
           <Parameter Name="ID_MARCA" Type="int" Mode="In" />
@@ -301,23 +263,35 @@
         </Function>
         <Function Name="SP_ACTUALIZAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
-          <Parameter Name="CORREO" Type="varchar" Mode="In" />
-          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="SP_ACTUALIZAR_USUARIO_ADM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
-          <Parameter Name="CORREO" Type="varchar" Mode="In" />
-          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
           <Parameter Name="ROL" Type="int" Mode="In" />
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="IDENTIFICACION" Type="varchar" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="ACTIVO" Type="bit" Mode="In" />
         </Function>
         <Function Name="SP_ANNADIR_CANTIDAD_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
           <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_ELIMINAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CAT_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_MARCA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MCA_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PRD_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_ELIMINAR_PRODUCTO_CARRITO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CAR_ID" Type="int" Mode="In" />
           <Parameter Name="PRD_ID" Type="int" Mode="In" />
           <Parameter Name="CANTIDAD_PRODUCTO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_ROL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ROL_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USR_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_INCIAR_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CORREO" Type="varchar" Mode="In" />
@@ -354,7 +328,6 @@
           <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_REGISTRAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
           <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
           <Parameter Name="DESCRIPCION" Type="varchar" Mode="In" />
           <Parameter Name="ID_MARCA" Type="int" Mode="In" />
@@ -376,6 +349,14 @@
           <Parameter Name="CONTRASENNA" Type="varchar" Mode="In" />
           <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_REGISTRAR_USUARIOADMIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="IDENTIFICACION" Type="varchar" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="CONTRASENNA" Type="varchar" Mode="In" />
+          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+          <Parameter Name="ROL" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_RESTAR_CANTIDAD_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
           <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
@@ -389,7 +370,6 @@
           <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="USR_DIRECCION" EntityType="Self.USR_DIRECCION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USR_TELEFONO" EntityType="Self.USR_TELEFONO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CARRITO__CAR_ID___4CA06362" Association="Self.FK__CARRITO__CAR_ID___4CA06362">
@@ -412,10 +392,6 @@
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
             <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
           </AssociationSet>
-          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3A81B327" Association="Self.FK__PRODUCTO__PRD_ID__3A81B327">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-          </AssociationSet>
           <AssociationSet Name="FK__PRODUCTO__PRD_ID__3B75D760" Association="Self.FK__PRODUCTO__PRD_ID__3B75D760">
             <End Role="MARCA" EntitySet="MARCA" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
@@ -423,10 +399,6 @@
           <AssociationSet Name="FK__PRODUCTO__PRD_ID__3C69FB99" Association="Self.FK__PRODUCTO__PRD_ID__3C69FB99">
             <End Role="CATEGORIA" EntitySet="CATEGORIA" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__USR_DIREC__DIR_I__300424B4" Association="Self.FK__USR_DIREC__DIR_I__300424B4">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="USR_DIRECCION" EntitySet="USR_DIRECCION" />
           </AssociationSet>
           <AssociationSet Name="FK__USR_TELEF__TEL_I__2D27B809" Association="Self.FK__USR_TELEF__TEL_I__2D27B809">
             <End Role="USUARIO" EntitySet="USUARIO" />
@@ -517,7 +489,6 @@
             <PropertyRef Name="PRD_ID" />
           </Key>
           <Property Name="PRD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRD_ID_USUARIO_FK" Type="Int32" />
           <Property Name="PRD_NOMBRE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="PRD_DESCRIPCION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="PRD_ID_MARCA_FK" Type="Int32" />
@@ -530,7 +501,6 @@
           <NavigationProperty Name="CATEGORIA" Relationship="Self.FK__PRODUCTO__PRD_ID__3C69FB99" FromRole="PRODUCTO" ToRole="CATEGORIA" />
           <NavigationProperty Name="DETALLE_COMPRA" Relationship="Self.FK__DETALLE_C__DTCPA__46E78A0C" FromRole="PRODUCTO" ToRole="DETALLE_COMPRA" />
           <NavigationProperty Name="MARCA" Relationship="Self.FK__PRODUCTO__PRD_ID__3B75D760" FromRole="PRODUCTO" ToRole="MARCA" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.FK__PRODUCTO__PRD_ID__3A81B327" FromRole="PRODUCTO" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -541,19 +511,6 @@
           <Property Name="ROL_ACTIVO" Type="Boolean" />
           <Property Name="ROL_FECHA_REGISTRO" Type="DateTime" Precision="3" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK__USUARIO__USR_ROL__286302EC" FromRole="ROL" ToRole="USUARIO" />
-        </EntityType>
-        <EntityType Name="USR_DIRECCION">
-          <Key>
-            <PropertyRef Name="DIR_ID" />
-          </Key>
-          <Property Name="DIR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DIR_ID_USUARIO_FK" Type="Int32" />
-          <Property Name="DIR_EXACTA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="DIR_PAIS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIR_PROVINCIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIR_CANTON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIR_DISTRITO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.FK__USR_DIREC__DIR_I__300424B4" FromRole="USR_DIRECCION" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="USR_TELEFONO">
           <Key>
@@ -576,14 +533,12 @@
           <Property Name="USR_ROL" Type="Int32" />
           <Property Name="USR_ACTIVO" Type="Boolean" />
           <Property Name="USR_FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <Property Name="USR_RECOVERY_TOKEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BITACORA" Relationship="Self.FK_BITACORA_USUARIO" FromRole="USUARIO" ToRole="BITACORA" />
           <NavigationProperty Name="CARRITO" Relationship="Self.FK__CARRITO__CAR_ID___4CA06362" FromRole="USUARIO" ToRole="CARRITO" />
           <NavigationProperty Name="COMPRA" Relationship="Self.FK__COMPRA__CPA_ID_U__4222D4EF" FromRole="USUARIO" ToRole="COMPRA" />
-          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__PRODUCTO__PRD_ID__3A81B327" FromRole="USUARIO" ToRole="PRODUCTO" />
           <NavigationProperty Name="ROL" Relationship="Self.FK__USUARIO__USR_ROL__286302EC" FromRole="USUARIO" ToRole="ROL" />
-          <NavigationProperty Name="USR_DIRECCION" Relationship="Self.FK__USR_DIREC__DIR_I__300424B4" FromRole="USUARIO" ToRole="USR_DIRECCION" />
           <NavigationProperty Name="USR_TELEFONO" Relationship="Self.FK__USR_TELEF__TEL_I__2D27B809" FromRole="USUARIO" ToRole="USR_TELEFONO" />
-          <Property Name="USR_RECOVERY_TOKEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_BITACORA_USUARIO">
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
@@ -681,18 +636,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PRODUCTO__PRD_ID__3A81B327">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="USR_ID" />
-            </Principal>
-            <Dependent Role="PRODUCTO">
-              <PropertyRef Name="PRD_ID_USUARIO_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__USUARIO__USR_ROL__286302EC">
           <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
@@ -702,18 +645,6 @@
             </Principal>
             <Dependent Role="USUARIO">
               <PropertyRef Name="USR_ROL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__USR_DIREC__DIR_I__300424B4">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-          <End Role="USR_DIRECCION" Type="Self.USR_DIRECCION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="USR_ID" />
-            </Principal>
-            <Dependent Role="USR_DIRECCION">
-              <PropertyRef Name="DIR_ID_USUARIO_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -738,7 +669,6 @@
           <EntitySet Name="MARCA" EntityType="Self.MARCA" />
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
           <EntitySet Name="ROL" EntityType="Self.ROL" />
-          <EntitySet Name="USR_DIRECCION" EntityType="Self.USR_DIRECCION" />
           <EntitySet Name="USR_TELEFONO" EntityType="Self.USR_TELEFONO" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
           <AssociationSet Name="FK_BITACORA_USUARIO" Association="Self.FK_BITACORA_USUARIO">
@@ -773,17 +703,9 @@
             <End Role="MARCA" EntitySet="MARCA" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
           </AssociationSet>
-          <AssociationSet Name="FK__PRODUCTO__PRD_ID__3A81B327" Association="Self.FK__PRODUCTO__PRD_ID__3A81B327">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-          </AssociationSet>
           <AssociationSet Name="FK__USUARIO__USR_ROL__286302EC" Association="Self.FK__USUARIO__USR_ROL__286302EC">
             <End Role="ROL" EntitySet="ROL" />
             <End Role="USUARIO" EntitySet="USUARIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__USR_DIREC__DIR_I__300424B4" Association="Self.FK__USR_DIREC__DIR_I__300424B4">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="USR_DIRECCION" EntitySet="USR_DIRECCION" />
           </AssociationSet>
           <AssociationSet Name="FK__USR_TELEF__TEL_I__2D27B809" Association="Self.FK__USR_TELEF__TEL_I__2D27B809">
             <End Role="USUARIO" EntitySet="USUARIO" />
@@ -809,7 +731,6 @@
           </FunctionImport>
           <FunctionImport Name="SP_ACTUALIZAR_PRODUCTO">
             <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
-            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
             <Parameter Name="NOMBRE" Mode="In" Type="String" />
             <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
             <Parameter Name="ID_MARCA" Mode="In" Type="Int32" />
@@ -825,8 +746,11 @@
           </FunctionImport>
           <FunctionImport Name="SP_ACTUALIZAR_USUARIO">
             <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ROL" Mode="In" Type="Int32" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="IDENTIFICACION" Mode="In" Type="String" />
             <Parameter Name="CORREO" Mode="In" Type="String" />
-            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="ACTIVO" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="SP_ACTUALIZAR_USUARIO_ADM">
             <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
@@ -834,14 +758,37 @@
             <Parameter Name="TELEFONO" Mode="In" Type="String" />
             <Parameter Name="ROL" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_ANNADIR_CANTIDAD_PRODUCTO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_CATEGORIA">
+          <Parameter Name="CAT_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_MARCA">
+          <Parameter Name="MCA_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_PRODUCTO">
+          <Parameter Name="PRD_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="SP_ELIMINAR_PRODUCTO_CARRITO">
             <Parameter Name="CAR_ID" Mode="In" Type="Int32" />
             <Parameter Name="PRD_ID" Mode="In" Type="Int32" />
             <Parameter Name="CANTIDAD_PRODUCTO" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_ROL">
+          <Parameter Name="ROL_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINAR_USUARIO">
+          <Parameter Name="USR_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="SP_INCIAR_SESION" ReturnType="Collection(DB_TIENDAModel.SP_INCIAR_SESION_Result)">
             <Parameter Name="CORREO" Mode="In" Type="String" />
             <Parameter Name="CONTRASENNA" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RECOVERY_TOKEN">
+            <Parameter Name="USR_RECOVERY_TOKEN" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_REGISTRAR_CATEGORIA">
           <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
@@ -870,7 +817,6 @@
           <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_REGISTRAR_PRODUCTO">
-            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
             <Parameter Name="NOMBRE" Mode="In" Type="String" />
             <Parameter Name="DESCRIPCION" Mode="In" Type="String" />
             <Parameter Name="ID_MARCA" Mode="In" Type="Int32" />
@@ -892,17 +838,17 @@
             <Parameter Name="CONTRASENNA" Mode="In" Type="String" />
             <Parameter Name="TELEFONO" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="SP_RECOVERY_TOKEN">
-            <Parameter Name="USR_RECOVERY_TOKEN" Mode="In" Type="String" />
-            <Parameter Name="CORREO" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_ANNADIR_CANTIDAD_PRODUCTO">
-            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
-            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_RESTAR_CANTIDAD_PRODUCTO">
             <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
             <Parameter Name="ID_PRODUCTO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_USUARIOADMIN">
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="IDENTIFICACION" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="CONTRASENNA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="ROL" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_INCIAR_SESION_Result">
@@ -914,6 +860,11 @@
           <Property Type="Int32" Name="USR_ROL" Nullable="true" />
           <Property Type="Boolean" Name="USR_ACTIVO" Nullable="true" />
           <Property Type="DateTime" Name="USR_FECHA_REGISTRO" Nullable="true" Precision="23" />
+          <Property Type="String" Name="USR_RECOVERY_TOKEN" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="ROL_ID" Nullable="false" />
+          <Property Type="String" Name="ROL_DESCRIPCION" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="ROL_ACTIVO" Nullable="true" />
+          <Property Type="DateTime" Name="ROL_FECHA_REGISTRO" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -989,7 +940,6 @@
             <EntityTypeMapping TypeName="DB_TIENDAModel.PRODUCTO">
               <MappingFragment StoreEntitySet="PRODUCTO">
                 <ScalarProperty Name="PRD_ID" ColumnName="PRD_ID" />
-                <ScalarProperty Name="PRD_ID_USUARIO_FK" ColumnName="PRD_ID_USUARIO_FK" />
                 <ScalarProperty Name="PRD_NOMBRE" ColumnName="PRD_NOMBRE" />
                 <ScalarProperty Name="PRD_DESCRIPCION" ColumnName="PRD_DESCRIPCION" />
                 <ScalarProperty Name="PRD_ID_MARCA_FK" ColumnName="PRD_ID_MARCA_FK" />
@@ -1011,19 +961,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="USR_DIRECCION">
-            <EntityTypeMapping TypeName="DB_TIENDAModel.USR_DIRECCION">
-              <MappingFragment StoreEntitySet="USR_DIRECCION">
-                <ScalarProperty Name="DIR_ID" ColumnName="DIR_ID" />
-                <ScalarProperty Name="DIR_ID_USUARIO_FK" ColumnName="DIR_ID_USUARIO_FK" />
-                <ScalarProperty Name="DIR_EXACTA" ColumnName="DIR_EXACTA" />
-                <ScalarProperty Name="DIR_PAIS" ColumnName="DIR_PAIS" />
-                <ScalarProperty Name="DIR_PROVINCIA" ColumnName="DIR_PROVINCIA" />
-                <ScalarProperty Name="DIR_CANTON" ColumnName="DIR_CANTON" />
-                <ScalarProperty Name="DIR_DISTRITO" ColumnName="DIR_DISTRITO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="USR_TELEFONO">
             <EntityTypeMapping TypeName="DB_TIENDAModel.USR_TELEFONO">
               <MappingFragment StoreEntitySet="USR_TELEFONO">
@@ -1036,7 +973,6 @@
           <EntitySetMapping Name="USUARIO">
             <EntityTypeMapping TypeName="DB_TIENDAModel.USUARIO">
               <MappingFragment StoreEntitySet="USUARIO">
-                <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
                 <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
                 <ScalarProperty Name="USR_NOMBRE" ColumnName="USR_NOMBRE" />
                 <ScalarProperty Name="USR_IDENTIFICACION" ColumnName="USR_IDENTIFICACION" />
@@ -1045,6 +981,7 @@
                 <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
                 <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
                 <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+                <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1054,8 +991,13 @@
           <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_PRODUCTO" />
           <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_ROL" />
           <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO" />
-          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO_ADM" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO_ADM" />
+          <FunctionImportMapping FunctionImportName="SP_ANNADIR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ANNADIR_CANTIDAD_PRODUCTO" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_CATEGORIA" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_MARCA" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_MARCA" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_PRODUCTO" />
           <FunctionImportMapping FunctionImportName="SP_ELIMINAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_PRODUCTO_CARRITO" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_ROL" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_INCIAR_SESION" FunctionName="DB_TIENDAModel.Store.SP_INCIAR_SESION">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_TIENDAModel.SP_INCIAR_SESION_Result">
@@ -1067,9 +1009,15 @@
                 <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
                 <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
                 <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+                <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
+                <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+                <ScalarProperty Name="ROL_DESCRIPCION" ColumnName="ROL_DESCRIPCION" />
+                <ScalarProperty Name="ROL_ACTIVO" ColumnName="ROL_ACTIVO" />
+                <ScalarProperty Name="ROL_FECHA_REGISTRO" ColumnName="ROL_FECHA_REGISTRO" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_RECOVERY_TOKEN" FunctionName="DB_TIENDAModel.Store.SP_RECOVERY_TOKEN" />
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_CATEGORIA" />
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_DIRECCION" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_DIRECCION" />
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ERROR" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ERROR" />
@@ -1079,9 +1027,8 @@
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_PRODUCTO_CARRITO" />
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ROL" />
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIO" />
-          <FunctionImportMapping FunctionImportName="SP_RECOVERY_TOKEN" FunctionName="DB_TIENDAModel.Store.SP_RECOVERY_TOKEN" />
-          <FunctionImportMapping FunctionImportName="SP_ANNADIR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ANNADIR_CANTIDAD_PRODUCTO" />
           <FunctionImportMapping FunctionImportName="SP_RESTAR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_RESTAR_CANTIDAD_PRODUCTO" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIOADMIN" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIOADMIN" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

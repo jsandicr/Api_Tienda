@@ -69,7 +69,6 @@
       <EntityTypeMapping TypeName="DB_TIENDAModel.PRODUCTO">
         <MappingFragment StoreEntitySet="PRODUCTO">
           <ScalarProperty Name="PRD_ID" ColumnName="PRD_ID" />
-          <ScalarProperty Name="PRD_ID_USUARIO_FK" ColumnName="PRD_ID_USUARIO_FK" />
           <ScalarProperty Name="PRD_NOMBRE" ColumnName="PRD_NOMBRE" />
           <ScalarProperty Name="PRD_DESCRIPCION" ColumnName="PRD_DESCRIPCION" />
           <ScalarProperty Name="PRD_ID_MARCA_FK" ColumnName="PRD_ID_MARCA_FK" />
@@ -91,19 +90,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="USR_DIRECCION">
-      <EntityTypeMapping TypeName="DB_TIENDAModel.USR_DIRECCION">
-        <MappingFragment StoreEntitySet="USR_DIRECCION">
-          <ScalarProperty Name="DIR_ID" ColumnName="DIR_ID" />
-          <ScalarProperty Name="DIR_ID_USUARIO_FK" ColumnName="DIR_ID_USUARIO_FK" />
-          <ScalarProperty Name="DIR_EXACTA" ColumnName="DIR_EXACTA" />
-          <ScalarProperty Name="DIR_PAIS" ColumnName="DIR_PAIS" />
-          <ScalarProperty Name="DIR_PROVINCIA" ColumnName="DIR_PROVINCIA" />
-          <ScalarProperty Name="DIR_CANTON" ColumnName="DIR_CANTON" />
-          <ScalarProperty Name="DIR_DISTRITO" ColumnName="DIR_DISTRITO" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="USR_TELEFONO">
       <EntityTypeMapping TypeName="DB_TIENDAModel.USR_TELEFONO">
         <MappingFragment StoreEntitySet="USR_TELEFONO">
@@ -116,7 +102,6 @@
     <EntitySetMapping Name="USUARIO">
       <EntityTypeMapping TypeName="DB_TIENDAModel.USUARIO">
         <MappingFragment StoreEntitySet="USUARIO">
-          <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
           <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
           <ScalarProperty Name="USR_NOMBRE" ColumnName="USR_NOMBRE" />
           <ScalarProperty Name="USR_IDENTIFICACION" ColumnName="USR_IDENTIFICACION" />
@@ -125,6 +110,7 @@
           <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
           <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
           <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+          <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -134,8 +120,13 @@
     <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_PRODUCTO" />
     <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_ROL" />
     <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO" />
-    <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_USUARIO_ADM" FunctionName="DB_TIENDAModel.Store.SP_ACTUALIZAR_USUARIO_ADM" />
+    <FunctionImportMapping FunctionImportName="SP_ANNADIR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ANNADIR_CANTIDAD_PRODUCTO" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_CATEGORIA" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_MARCA" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_MARCA" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_PRODUCTO" />
     <FunctionImportMapping FunctionImportName="SP_ELIMINAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_PRODUCTO_CARRITO" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_ROL" />
+    <FunctionImportMapping FunctionImportName="SP_ELIMINAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_ELIMINAR_USUARIO" />
     <FunctionImportMapping FunctionImportName="SP_INCIAR_SESION" FunctionName="DB_TIENDAModel.Store.SP_INCIAR_SESION">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DB_TIENDAModel.SP_INCIAR_SESION_Result">
@@ -147,9 +138,15 @@
           <ScalarProperty Name="USR_ROL" ColumnName="USR_ROL" />
           <ScalarProperty Name="USR_ACTIVO" ColumnName="USR_ACTIVO" />
           <ScalarProperty Name="USR_FECHA_REGISTRO" ColumnName="USR_FECHA_REGISTRO" />
+          <ScalarProperty Name="USR_RECOVERY_TOKEN" ColumnName="USR_RECOVERY_TOKEN" />
+          <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+          <ScalarProperty Name="ROL_DESCRIPCION" ColumnName="ROL_DESCRIPCION" />
+          <ScalarProperty Name="ROL_ACTIVO" ColumnName="ROL_ACTIVO" />
+          <ScalarProperty Name="ROL_FECHA_REGISTRO" ColumnName="ROL_FECHA_REGISTRO" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_RECOVERY_TOKEN" FunctionName="DB_TIENDAModel.Store.SP_RECOVERY_TOKEN" />
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_CATEGORIA" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_CATEGORIA" />
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_DIRECCION" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_DIRECCION" />
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ERROR" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ERROR" />
@@ -159,8 +156,7 @@
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_PRODUCTO_CARRITO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_PRODUCTO_CARRITO" />
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ROL" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_ROL" />
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIO" />
-    <FunctionImportMapping FunctionImportName="SP_RECOVERY_TOKEN" FunctionName="DB_TIENDAModel.Store.SP_RECOVERY_TOKEN" />
-    <FunctionImportMapping FunctionImportName="SP_ANNADIR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_ANNADIR_CANTIDAD_PRODUCTO" />
     <FunctionImportMapping FunctionImportName="SP_RESTAR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_RESTAR_CANTIDAD_PRODUCTO" />
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIOADMIN" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIOADMIN" />
   </EntityContainerMapping>
 </Mapping>

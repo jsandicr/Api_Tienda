@@ -36,6 +36,25 @@ namespace Api_Tienda.Controllers
 
         [Authorize]
         [HttpGet]
+        [Route("api/CategoriaAdmin")]
+        public RespuestaCategoria GetCategoriasAdmin()
+        {
+            try
+            {
+                return categoriaModel.GetCategoriasAdmin();
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaCategoria respuesta = new RespuestaCategoria(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
         [Route("api/Categoria/{id}")]
         public RespuestaCategoria GetCategoriaById(int id)
         {
@@ -84,6 +103,25 @@ namespace Api_Tienda.Controllers
             catch (Exception ex)
             {
                 modelError.RegistrarErroresId(categoria.IdCategoria, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("api/Categoria/EliminarCategoria")]
+        public RespuestaUsuario EliminarCategoria(int IdCategoria)
+        {
+            try
+            {
+                return categoriaModel.EliminarCategoria(IdCategoria);
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(IdCategoria, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
                 RespuestaUsuario respuesta = new RespuestaUsuario(); //Creacion del nuevo objeto de respuesta
                 respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error

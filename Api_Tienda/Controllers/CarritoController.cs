@@ -1,4 +1,5 @@
-﻿using Api_Tienda.Models.Modelos;
+﻿using Api_Tienda.BaseDatos;
+using Api_Tienda.Models.Modelos;
 using Api_Tienda.Models.Objetos;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Api_Tienda.Controllers
         ErrorModel modelError = new ErrorModel();
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("api/Carrito/AgregarACarrito")] //Ruta del api
         public CarritoRespuesta AgregarProductoACarrito(CarritoObj carrito) //Controller para registrar el producto al carrito
@@ -36,7 +37,7 @@ namespace Api_Tienda.Controllers
         }
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("api/Carrito/GetCarrito")] //Ruta del api
         public CarritoRespuesta GetCarrito(int id) //Controller para registrar el producto al carrito
@@ -56,37 +57,16 @@ namespace Api_Tienda.Controllers
 
         }
 
-        //Este metodo es para añadir una unidad de un producto existente
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //[Authorize]
-        [HttpPost]
-        [Route("api/Carrito/AddCart")]
-        public RespuestaProducto AddProducto(ProductoObj producto)
-        {
-            try
-            {
-                return modelCarrito.AumentarCantidadProducto(producto);
-            }
-            catch (Exception ex)
-            {
-                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
-                RespuestaProducto respuesta = new RespuestaProducto(); //Creacion del nuevo objeto de respuesta
-                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
-                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
-                return respuesta; //Retorna los datos
-            }
-        }
-
         //Este metodo es para restar una unidad de un producto existente
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("api/Carrito/RestCart")]
-        public RespuestaProducto DisminuirProducto(ProductoObj producto)
+        public RespuestaProducto DisminuirProducto(CarritoObj carrito)
         {
             try
             {
-                return modelCarrito.RestarCantidadProducto(producto);
+                return modelCarrito.RestarCantidadProducto(carrito);
             }
             catch (Exception ex)
             {

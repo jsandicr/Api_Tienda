@@ -20,8 +20,6 @@ namespace Api_Tienda.BaseDatos
             this.BITACORA = new HashSet<BITACORA>();
             this.CARRITO = new HashSet<CARRITO>();
             this.COMPRA = new HashSet<COMPRA>();
-            this.PRODUCTO = new HashSet<PRODUCTO>();
-            this.USR_DIRECCION = new HashSet<USR_DIRECCION>();
             this.USR_TELEFONO = new HashSet<USR_TELEFONO>();
         }
     
@@ -41,11 +39,7 @@ namespace Api_Tienda.BaseDatos
         public virtual ICollection<CARRITO> CARRITO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMPRA> COMPRA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
         public virtual ROL ROL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USR_DIRECCION> USR_DIRECCION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USR_TELEFONO> USR_TELEFONO { get; set; }
     }
