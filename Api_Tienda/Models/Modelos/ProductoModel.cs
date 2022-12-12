@@ -123,7 +123,7 @@ namespace Api_Tienda.Models.Modelos
             RespuestaProducto respuestaProducto = new RespuestaProducto();
             using (var BaseDatos = new DB_TIENDAEntities())
             {
-                var respuesta = (from x in BaseDatos.PRODUCTO join c in BaseDatos.CATEGORIA on x.PRD_ID_CATEGORIA_FK equals c.CAT_ID where c.CAT_ID == id select x).ToList();
+                var respuesta = (from x in BaseDatos.PRODUCTO join c in BaseDatos.CATEGORIA on x.PRD_ID_CATEGORIA_FK equals c.CAT_ID where c.CAT_ID == id && x.PRD_ACTIVO == true && x.PRD_STOCK > 0 select x).ToList();
 
                 if (respuesta.Count > 0)
                 {

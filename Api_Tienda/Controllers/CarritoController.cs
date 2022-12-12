@@ -62,7 +62,7 @@ namespace Api_Tienda.Controllers
         [Authorize]
         [HttpPost]
         [Route("api/Carrito/RestCart")]
-        public RespuestaProducto DisminuirProducto(CarritoObj carrito)
+        public CarritoRespuesta DisminuirProducto(CarritoObj carrito)
         {
             try
             {
@@ -71,7 +71,27 @@ namespace Api_Tienda.Controllers
             catch (Exception ex)
             {
                 modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
-                RespuestaProducto respuesta = new RespuestaProducto(); //Creacion del nuevo objeto de respuesta
+                CarritoRespuesta respuesta = new CarritoRespuesta(); //Creacion del nuevo objeto de respuesta
+                respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
+                respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
+                return respuesta; //Retorna los datos
+            }
+        }
+
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [Authorize]
+        [HttpPost]
+        [Route("api/Carrito/Checkout")]
+        public CarritoRespuesta Checkout(CarritoObj carrito)
+        {
+            try
+            {
+                return modelCarrito.Checkout(carrito);
+            }
+            catch (Exception ex)
+            {
+                modelError.RegistrarErroresId(0, ex, MethodBase.GetCurrentMethod().Name); //Registro de errores
+                CarritoRespuesta respuesta = new CarritoRespuesta(); //Creacion del nuevo objeto de respuesta
                 respuesta.Codigo = -1; //El -1 se significa que ocurrió un error
                 respuesta.Mensaje = "Se presentó un error"; //Mensaje de error
                 return respuesta; //Retorna los datos

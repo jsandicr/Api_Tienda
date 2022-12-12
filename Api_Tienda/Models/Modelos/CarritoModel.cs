@@ -77,9 +77,9 @@ namespace Api_Tienda.Models.Modelos
         }
 
         //Metodo para aumentar cantidad de articulo en el carrito
-        public RespuestaProducto AumentarCantidadProducto(ProductoObj producto, int usuarioId)
+        public CarritoRespuesta AumentarCantidadProducto(ProductoObj producto, int usuarioId)
         {
-            RespuestaProducto respuestaProducto = new RespuestaProducto();
+            CarritoRespuesta respuestaProducto = new CarritoRespuesta();
             using (var BaseDatos = new DB_TIENDAEntities())
             {
                 var respuesta = BaseDatos.SP_ANNADIR_CANTIDAD_PRODUCTO(usuarioId, producto.IdProducto);
@@ -100,9 +100,9 @@ namespace Api_Tienda.Models.Modelos
         }
 
         //Metodo para disminuir cantidad de articulo en el carrito
-        public RespuestaProducto RestarCantidadProducto(CarritoObj carrito)
+        public CarritoRespuesta RestarCantidadProducto(CarritoObj carrito)
         {
-            RespuestaProducto respuestaProducto = new RespuestaProducto();
+            CarritoRespuesta respuestaProducto = new CarritoRespuesta();
             using (var BaseDatos = new DB_TIENDAEntities())
             {
                 var respuesta = BaseDatos.SP_RESTAR_CANTIDAD_PRODUCTO(carrito.IdUsuario, carrito.IdProducto);
@@ -119,6 +119,28 @@ namespace Api_Tienda.Models.Modelos
                 }
 
                 return respuestaProducto;
+            }
+        }
+
+        public CarritoRespuesta Checkout(CarritoObj carrito)
+        {
+            CarritoRespuesta respuestaCarrito = new CarritoRespuesta();
+            using (var BaseDatos = new DB_TIENDAEntities())
+            {
+                var respuesta = BaseDatos.SP_CHECKOUT(carrito.IdUsuario);
+
+                if (respuesta > 0)
+                {
+                    respuestaCarrito.Codigo = 1;
+                    respuestaCarrito.Mensaje = "Checkout realizado correctamente";
+                }
+                else
+                {
+                    respuestaCarrito.Codigo = 0;
+                    respuestaCarrito.Mensaje = "Error al realizar el checkout";
+                }
+
+                return respuestaCarrito;
             }
         }
     }

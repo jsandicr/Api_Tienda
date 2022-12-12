@@ -512,5 +512,14 @@ namespace Api_Tienda.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_USUARIOADMIN", nOMBREParameter, iDENTIFICACIONParameter, cORREOParameter, cONTRASENNAParameter, tELEFONOParameter, rOLParameter);
         }
+    
+        public virtual int SP_CHECKOUT(Nullable<int> iD_USUARIO)
+        {
+            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
+                new ObjectParameter("ID_USUARIO", iD_USUARIO) :
+                new ObjectParameter("ID_USUARIO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_CHECKOUT", iD_USUARIOParameter);
+        }
     }
 }

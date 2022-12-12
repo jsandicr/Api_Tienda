@@ -433,6 +433,9 @@
       <Parameter Name="TELEFONO" Mode="In" Type="String" />
       <Parameter Name="ROL" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="SP_CHECKOUT">
+      <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_INCIAR_SESION_Result">
     <Property Type="Int32" Name="USR_ID" Nullable="false" />

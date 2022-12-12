@@ -158,5 +158,6 @@
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIO" />
     <FunctionImportMapping FunctionImportName="SP_RESTAR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_RESTAR_CANTIDAD_PRODUCTO" />
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIOADMIN" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIOADMIN" />
+    <FunctionImportMapping FunctionImportName="SP_CHECKOUT" FunctionName="DB_TIENDAModel.Store.SP_CHECKOUT" />
   </EntityContainerMapping>
 </Mapping>

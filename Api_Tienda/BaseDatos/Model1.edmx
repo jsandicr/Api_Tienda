@@ -273,6 +273,9 @@
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
           <Parameter Name="ID_PRODUCTO" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_CHECKOUT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_ELIMINAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CAT_ID" Type="int" Mode="In" />
         </Function>
@@ -850,6 +853,9 @@
             <Parameter Name="TELEFONO" Mode="In" Type="String" />
             <Parameter Name="ROL" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_CHECKOUT">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_INCIAR_SESION_Result">
           <Property Type="Int32" Name="USR_ID" Nullable="false" />
@@ -1029,6 +1035,7 @@
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_RESTAR_CANTIDAD_PRODUCTO" FunctionName="DB_TIENDAModel.Store.SP_RESTAR_CANTIDAD_PRODUCTO" />
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIOADMIN" FunctionName="DB_TIENDAModel.Store.SP_REGISTRAR_USUARIOADMIN" />
+          <FunctionImportMapping FunctionImportName="SP_CHECKOUT" FunctionName="DB_TIENDAModel.Store.SP_CHECKOUT" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
